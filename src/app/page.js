@@ -21,19 +21,19 @@ export default function Home() {
    * @param {number} id 
    * @returns {game}
    */
-  function makeGame (id) {
+  function makeGame(id) {
     return {
       id,
       isDone: false,
-      isStarted: id === 0, 
-      slots: scoringOptions.map(so => ({id: so.id, score: undefined})),
+      isStarted: id === 0,
+      slots: scoringOptions.map(so => ({ id: so.id, score: undefined })),
     };
   }
-  
+
   // number of games to show in UI. Traditional scorecard shows 6
-  const GAME_COUNT = 6; 
+  const GAME_COUNT = 6;
   const gameIds = _.times(GAME_COUNT, _.identity); // makes [0,1,2,3,4,5]
-  
+
   const gamess = gameIds.map(makeGame);
   const [games, setGames] = useState(gamess);
 
@@ -64,13 +64,13 @@ export default function Home() {
    * @param {game} game 
    * @returns {boolean}
    */
-  function isGameComplete (game) {
+  function isGameComplete(game) {
     const gameScores = game.slots.map(slot => slot.score);
     return _.every(gameScores, _.isNumber);
   }
 
   // see if game qualifies as done
-  function checkDone (gameId) {
+  function checkDone(gameId) {
     const game = games[gameId]
     const done = isGameComplete(game);
 
@@ -90,19 +90,19 @@ export default function Home() {
       }
     }
   }
-  
+
   // Sscoring option input markup
   const soEntryCells = scoringOptions.map(so => {
     return games.map(g => {
-      function onScoreChange (slotId, score) {
+      function onScoreChange(slotId, score) {
         const game = _.cloneDeep(g);
         game.slots[slotId].score = score;
-        
+
         updateGame(game);
 
         checkDone(game.id);
       }
-      
+
       return ScoreCell({
         gameId: g.id,
         scoreOptionId: so.id,
@@ -115,10 +115,9 @@ export default function Home() {
 
   // Map over scoring options to create sidebar
   let mapper = so => {
-  return <tr key={so.id}>
+    return <tr key={so.id}>
       <td>{so.id + 1}</td>
-      <td>{so.name}</td>
-      <td>{so.scoring}</td>
+      <td><strong>{so.name}</strong> - <wbo></wbo> <small>{so.scoring}</small></td>
       {soEntryCells[so.id]}
     </tr>
   }
@@ -126,54 +125,81 @@ export default function Home() {
   const kismetSectionMarkup = kismetSectionItems.map(mapper);
 
   // calculation functions
-  function getBasicTotalScore (game) {
+  function getBasicBaseScore(game) {
     const scores = basicSectionItems.map(bsi => game.slots[bsi.id].score);
     return _.sum(_.compact(scores));
   }
+  
+  function getBasicBonusScore(game) {
+    const basicScore = getBasicBaseScore(game);
+    return makeBasicBonus(basicScore);
+  }
+  
+  function getBasicTotalScore(game) {
+    return getBasicBaseScore(game) + getBasicBonusScore(game);
+  }
 
-  function getKismetTotalScore (game) {
+  function getKismetTotalScore(game) {
     const scores = kismetSectionItems.map(ksi => game.slots[ksi.id].score);
     return _.sum(_.compact(scores));
   }
 
-  function getBasicBonusScore (game) {
-    const basicScore = getBasicTotalScore(game);
-    return makeBasicBonus(basicScore);
+
+  
+
+  function makeSectionLabel(title, cells) {
+    return <tr>
+      <td colSpan="2" className="results-section-label">{title}</td>
+      {cells}
+    </tr>
   }
 
   // base template for a total score cell
-  function makeScoreCell (key, content) {
+  function makeScoreCell(key, content) {
     return <td key={key}>{content}</td>;
   }
 
   // Make all the score rows
-  const basicSectionTotalMarkup = games.map(game => {
+  const bsbbc = games.map(game => {
+    return makeScoreCell(game.id, getBasicBaseScore(game));
+  });
+
+  const basicSectionBaseMarkup = makeSectionLabel('Total', bsbbc);
+  const bstc = games.map(game => {
     return makeScoreCell(game.id, getBasicTotalScore(game));
   });
 
-  const basicSectionBonusMarkup = games.map(game => {
+  const basicSectionTotalMarkup = makeSectionLabel('Basic Section Total', bstc);
+
+  const bsbc = games.map(game => {
+    // return makeSectionLabel('Bonus', game.id, getBasicBonusScore(game));
     return makeScoreCell(game.id, getBasicBonusScore(game));
   });
-  
-  const kismetSectionTotalMarkup = games.map(game => {
+  const basicSectionBonusMarkup = makeSectionLabel('Bonus', bsbc)
+
+  const kstc = games.map(game => {
     return makeScoreCell(game.id, getKismetTotalScore(game));
   });
-  
-  const totalSctionMarkup = games.map(game => {
+  const kismetSectionTotalMarkup = makeSectionLabel('Kismet Section Total', kstc)
+
+  const tsm = games.map(game => {
     const total = getBasicTotalScore(game) + getKismetTotalScore(game);
     return makeScoreCell(game.id, total);
   })
-  
+  const totalSectionMarkup = makeSectionLabel('Game Total', tsm)
+
+
+
   // make the col and label rows
   const gameCols = games.map(g => {
-    const className = (!g.isDone && g.isStarted)? 'active-game' : 'inactive-game';
+    const className = (!g.isDone && g.isStarted) ? 'active-game' : 'inactive-game';
     return <col key={g.id} className={className}></col>;
   });
 
-  const gameLabels = games.map(g=> {
+  const gameLabels = games.map(g => {
     return <th key={g.id}>{ordinals[g.id]} Game</th>;
   });
-  
+
   // TODO use grid layout. Table doesn't get the spacing right easily
   return (
     <main>
@@ -183,66 +209,49 @@ export default function Home() {
           <colgroup className="sidelabels">
             <col></col>
             <col></col>
-            <col></col>
           </colgroup>
           <colgroup className="scorecols">
             {gameCols}
           </colgroup>
           <thead>
             <tr>
-              <th colSpan="2">Basic Section</th>
-              <th>What to Score</th>
+              <th colSpan="2">
+                <span className="strong">Basic Section</span>&emsp; <small>What to Score</small>
+              </th>
               {gameLabels}
             </tr>
           </thead>
-          
+
           <tbody>
             {basicSectionMarkup}
           </tbody>
-          
+
           <tbody className="section-results">
-            <tr>
-              <td colSpan="3">Total</td>
-              {basicSectionTotalMarkup}
-            </tr>
-            <tr>
-              <td colSpan="3">Bonus</td>
-              {basicSectionBonusMarkup}
-            </tr>
-            <tr>
-              <td colSpan="3">Basic Section Total</td>
-              {basicSectionTotalMarkup}
-            </tr>
+            {basicSectionBaseMarkup}
+            {basicSectionBonusMarkup}
+            {basicSectionTotalMarkup}
           </tbody>
 
           <thead>
             <tr>
-              <th colSpan="2">Kismet Section</th>
-              <th>What to Score</th>
+              <th colSpan="2">
+                <span className="strong">Kismet Section</span>&emsp;<small>What to Score</small>
+              </th>
               <th colSpan="6"></th>
             </tr>
           </thead>
-          
+
           <tbody>
             {kismetSectionMarkup}
           </tbody>
-          
+
           <tfoot className="section-results">
-            <tr>
-              <td colSpan="3">Kismet Section Total</td>
-              {kismetSectionTotalMarkup}
-            </tr>
-            <tr>
-              <td colSpan="3">Basic Section Total</td>
-              {basicSectionTotalMarkup}
-            </tr>
-            <tr>
-              <td colSpan="3">Game Total</td>
-              {totalSctionMarkup}
-            </tr>
+            {kismetSectionTotalMarkup}
+            {basicSectionTotalMarkup}
+            {totalSectionMarkup}
           </tfoot>
         </table>
-        
+
       </div>
     </main>
   )

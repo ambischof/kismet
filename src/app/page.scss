@@ -3,7 +3,7 @@
   col:first-child {
     min-width: 1.5rem;
   }
-  col:nth-child(3) {
+  col:nth-child(2) {
     border-left-width: 3px;
   }
   border-top-width: 0px;
@@ -14,14 +14,28 @@
   width: 10%
 }
 
+
 .section-results tr:last-child td {
   border-bottom-width: 3px;
 }
 
 #trad-scorecard {
+  .results-section-label {
+    text-align: right;
+    padding-right: 1rem;
+  }
 
   thead th {
     border-width: 0px;
+  }
+
+  td, th {
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
+  td.input-cell {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   

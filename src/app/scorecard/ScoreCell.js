@@ -11,18 +11,29 @@ function ScoreCell (params, changeValue) {
   // When empty, the value in DOM should be '', not undefined.
   const renderedValue = isUndefined(params.score)? '' : params.score;
 
+  if (params.isDone || !params.isStarted) {
     return (
-      <td data-id={uniqueId} key={uniqueId}>
-        <input 
-          data-game={params.gameId} 
-          data-scoreop={params.scoreOptionId}
-          type="text" 
-          value={renderedValue}
-          disabled={params.isDone || !params.isStarted}
-          onChange={onChange}
-        >
-        </input>
-      </td>)
+      <td 
+        data-id={uniqueId} 
+        key={uniqueId}
+        data-game={params.gameId} 
+        data-scoreop={params.scoreOptionId}
+      >
+      {renderedValue}
+    </td>)
+  }
+
+  else return (
+    <td className="input-cell" data-id={uniqueId} key={uniqueId}>
+      <input 
+        data-game={params.gameId} 
+        data-scoreop={params.scoreOptionId}
+        type="text" 
+        value={renderedValue}
+        onChange={onChange}
+      >
+      </input>
+    </td>)
   }
 
   export default ScoreCell;
