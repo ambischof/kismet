@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import { useState } from 'react';
 import './page.scss'
-import ScoreCell from './scorecard/ScoreCell';
+import ScoreCell from './components/ScoreCell';
 import scoringOptions from '../lib/scoreOptions';
 import makeBasicBonus from '../lib/makeBasicBonus';
 import ordinals from '../lib/ordinals';
