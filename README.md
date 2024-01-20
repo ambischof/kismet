@@ -11,3 +11,7 @@ This project was made to help me learn React. And in an app that you probably ha
 ## What this project is not
 
 I spent no time in making this look good. I also didn't try to add in other gameplay elements that a digital version could provide, at least not in this iteration.
+
+
+## Demo
+Github pages is set up to point to the docs folder which holds the demo
