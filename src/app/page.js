@@ -75,14 +75,14 @@ export default function Home() {
     const done = isGameComplete(game);
 
     if (done && !game.isDone) {
-      clonedGame = _.cloneDeep(game);
+      const clonedGame = _.cloneDeep(game);
       clonedGame.isDone = done;
 
       updateGame(clonedGame);
 
       // if there is a next game, start it
       if (game.id < (GAME_COUNT - 1)) {
-        clonedNextGame = _.cloneDeep(games[gameId + 1]);
+        const clonedNextGame = _.cloneDeep(games[gameId + 1]);
 
         clonedNextGame.isStarted = true;
 
