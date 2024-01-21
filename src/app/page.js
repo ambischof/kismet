@@ -30,7 +30,7 @@ export default function Home() {
   let mapper = so => {
     return <tr key={so.id}>
       <td>{so.id + 1}</td>
-      <td><strong>{so.name}</strong> - <wbo></wbo> <small>{so.scoring}</small></td>
+      <td><strong>{so.name}</strong> - <wbr></wbr> <small>{so.scoring}</small></td>
       {soEntryCells[so.id]}
     </tr>
   }
