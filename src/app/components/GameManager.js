@@ -59,6 +59,20 @@ export default function GameManager () {
   }
 
   /**
+   * Update multiple games at once
+   * (if updating multiple games at once, only seems to work if done in batches)
+   * @param {game[]} updatedGames - an array of updated games
+   */
+  function updateGames (updatedGames) {
+    const newGames = [...games];
+    for (let g of updatedGames) {
+      newGames[g.id] = g;
+    }
+
+    setGames(newGames);
+  }
+
+  /**
    * See if game is complete by seeing if all spaces are filled
    * 
    * overly simple check, in the future, can let user decide when game is done
@@ -72,23 +86,22 @@ export default function GameManager () {
 
   // see if game qualifies as done
   function checkDone(gameId) {
-    const game = games[gameId]
+    const game = games[gameId];
     const done = isGameComplete(game);
-
     if (done && !game.isDone) {
       const clonedGame = _.cloneDeep(game);
       clonedGame.isDone = done;
 
-      updateGame(clonedGame);
-
+      const updatedGames = [clonedGame];
       // if there is a next game, start it
       if (game.id < (GAME_COUNT - 1)) {
         const clonedNextGame = _.cloneDeep(games[gameId + 1]);
-
+        
         clonedNextGame.isStarted = true;
-
-        updateGame(clonedNextGame);
+        
+        updatedGames.push(clonedNextGame);
       }
+      updateGames(updatedGames);
     }
   }
 
