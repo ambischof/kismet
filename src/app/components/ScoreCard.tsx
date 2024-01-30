@@ -1,20 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import ScoreCell from './ScoreCell';
-import scoringOptions from '../../lib/scoreOptions';
+import scoringOptions, { ScoringOptions } from '../../lib/scoreOptions';
 import ordinals from '../../lib/ordinals';
-import type GameManager from './GameManager';
+import {type GameManagerr} from './GameManager';
 
- interface ScoreSlot {
-  score: number
-}
- interface Game {
-  id: number;
-  isDone: boolean;
-  isStarted: boolean;
-  slots: ScoreSlot[];
-}
-export default function ScoreCard({gameManager} : {gameManager: GameManager }) {
 
+export default function ScoreCard({gameManager} : {gameManager: GameManagerr }) {
   // Scoring option input markup
   const soEntryCells = scoringOptions.map(so => {
     return gameManager.games.map( g => {
@@ -33,7 +24,7 @@ export default function ScoreCard({gameManager} : {gameManager: GameManager }) {
   });
 
   // Map over scoring options to create sidebar
-  let mapper = so => {
+  let mapper = (so: ScoringOptions) => {
     return <tr key={so.id}>
       <td>{so.id + 1}</td>
       <td><strong>{so.name}</strong> - <wbr></wbr> <small>{so.scoring}</small></td>
@@ -45,15 +36,15 @@ export default function ScoreCard({gameManager} : {gameManager: GameManager }) {
 
   
 
-  function makeSectionLabel(title: string, cells) {
+  function makeSectionLabel(title: string, cells: ReactElement[]) {
     return <tr>
-      <td colSpan="2" className="results-section-label">{title}</td>
+      <td colSpan={2} className="results-section-label">{title}</td>
       {cells}
     </tr>
   }
 
   // base template for a total score cell
-  function makeScoreCell(key, content) {
+  function makeScoreCell(key: number, content: number) {
     return <td key={key}>{content}</td>;
   }
 
@@ -112,7 +103,7 @@ export default function ScoreCard({gameManager} : {gameManager: GameManager }) {
         </colgroup>
         <thead>
           <tr>
-            <th colSpan="2">
+            <th colSpan={2}>
               <span className="strong">Basic Section</span>&emsp; <small>What to Score</small>
             </th>
             {gameLabels}
@@ -131,10 +122,10 @@ export default function ScoreCard({gameManager} : {gameManager: GameManager }) {
 
         <thead>
           <tr>
-            <th colSpan="2">
+            <th colSpan={2}>
               <span className="strong">Kismet Section</span>&emsp;<small>What to Score</small>
             </th>
-            <th colSpan="6"></th>
+            <th colSpan={6}></th>
           </tr>
         </thead>
 

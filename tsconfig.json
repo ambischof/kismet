@@ -27,8 +27,9 @@
     "next-env.d.ts",
     "docs/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/lib/makeBasicBonus.js"  ],
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

@@ -2,6 +2,7 @@
 import _ from 'lodash';
 import { useState } from 'react';
 import scoringOptions from '../../lib/scoreOptions';
+import {type ScoringOptions} from '../../lib/scoreOptions';
 import makeBasicBonus from '../../lib/makeBasicBonus';
 
 interface ScoreSlot {
@@ -14,12 +15,28 @@ interface Game {
   isStarted: boolean;
   slots: ScoreSlot[];
 }
-export type {Game};
+
+interface GameManagerr {
+  games: Game[];
+  kismetSectionItems: ScoringOptions[];
+  basicSectionItems: ScoringOptions[];
+  updateGame: (game: Game) => void;
+  checkDone: (gameId: number) => void;
+  getBasicBaseScore: (game: Game) => number;
+  getBasicBonusScore: (game: Game) => number;
+  getBasicTotalScore: (game: Game) => number;
+  getKismetTotalScore: (game: Game) => number;
+  scoreChangeHander: (g: Game, slotId: number, score: number) => void;
+}
+
+export type {Game, GameManagerr};
 
 /**
  * Contains the state and logic of the games
  */
-export default function GameManager () {
+export default function GameManager () : GameManagerr  {
+
+
   /**
    * 
    * @param {number} id 

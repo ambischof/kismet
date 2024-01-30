@@ -3,7 +3,6 @@ import _ from 'lodash';
 import './page.scss'
 import ScoreCard from './components/ScoreCard';
 import GameManager from './components/GameManager';
-import './app.d';
 import React from 'react';
 
 

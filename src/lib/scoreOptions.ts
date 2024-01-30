@@ -101,3 +101,4 @@ const scoringOptions: ScoringOptions[] = [
 ];
 
 export default scoringOptions;
+export type {ScoringOptions};

@@ -771,11 +771,11 @@ self.__RSC_MANIFEST={
   },
   "edgeSSRModuleMapping": {},
   "cssFiles": {
-    "C:\\Users\\annem\\dev\\kismet\\src\\app\\layout": [
-      "static/css/app/layout.css"
-    ],
     "C:\\Users\\annem\\dev\\kismet\\src\\app\\page": [
       "static/css/app/page.css"
+    ],
+    "C:\\Users\\annem\\dev\\kismet\\src\\app\\layout": [
+      "static/css/app/layout.css"
     ]
   },
   "clientModules": {
@@ -2475,13 +2475,6 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "C:\\Users\\annem\\dev\\kismet\\src\\app\\globals.css#": {
-      "id": "null",
-      "name": "default",
-      "chunks": [
-        "static/css/app/layout.css"
-      ]
-    },
     "C:\\Users\\annem\\dev\\kismet\\src\\app\\page.scss#": {
       "id": "null",
       "name": "default",
@@ -2512,6 +2505,13 @@ self.__RSC_MANIFEST={
         "app/page:static/chunks/app/page.js"
       ],
       "async": false
+    },
+    "C:\\Users\\annem\\dev\\kismet\\src\\app\\globals.css#": {
+      "id": "null",
+      "name": "default",
+      "chunks": [
+        "static/css/app/layout.css"
+      ]
     }
   }
 }
