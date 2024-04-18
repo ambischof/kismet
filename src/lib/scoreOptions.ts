@@ -220,8 +220,10 @@ const scoringOptions: ScoringOptions[] = [
     scoring: 'Total All Dice Plus 50',
     section: 2,
     computeScore (numbers) {
-      //stub
-      return 0;
+      const num = getNOfAKind(5, numbers);
+      if (num === null) return 0
+      else 
+        return numbers.reduce((p,c) => p + c) + 50;
     }
   }
 ];

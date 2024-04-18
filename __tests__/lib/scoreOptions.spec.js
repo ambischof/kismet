@@ -49,9 +49,9 @@ it('it should give 7 for [1,1,1,1,3]', () => {
   expect(scoreOptions[6].computeScore([1,1,1,1,3])).toBe(7);
 });
 it('it should give 0 for no 3 of a kind', () => {
-  expect(scoreOptions[7].computeScore([1,2,3,4,5])).toBe(0);
+  expect(scoreOptions[7].computeScore([1,1,3,4,5])).toBe(0);
 });
-it('it should give 8 for [1,1,1,2,3]', () => {
+it('it should give 8 for [1,1,1,2,3] (3 of a kind)', () => {
   expect(scoreOptions[7].computeScore([1,1,1,2,3])).toBe(8);
 });
 it('it should give 30 for low straight', () => {
@@ -82,7 +82,7 @@ it('it should give 36 for [2,2,2,5,5]', () => {
   expect(scoreOptions[11].computeScore([2,2,2,5,5])).toBe(36);
 });
 it('it should give 0 for not 4 of a kind', () => {
-  expect(scoreOptions[12].computeScore([1,2,3,4,5])).toBe(0);
+  expect(scoreOptions[12].computeScore([1,1,1,4,5])).toBe(0);
 });
 it('it should give 31 for [1,1,1,1,2] (four of a kind)', () => {
   expect(scoreOptions[12].computeScore([1,1,1,1,2])).toBe(31);
@@ -90,9 +90,9 @@ it('it should give 31 for [1,1,1,1,2] (four of a kind)', () => {
 it('it should give 5 for [1,1,1,1,1] (Yarborough)', () => {
   expect(scoreOptions[13].computeScore([1,1,1,1,1])).toBe(5);
 });
-it.skip('it should give 0 for not 5 of a kind', () => {
-  expect(scoreOptions[1].computeScore([1,2,3,4,5])).toBe(0);
+it('it should give 0 for not 5 of a kind', () => {
+  expect(scoreOptions[1].computeScore([1,1,1,1,5])).toBe(0);
 });
-it.skip('it should give 55 for [1,1,1,1,1] (5 of a kind)', () => {
+it('it should give 55 for [1,1,1,1,1] (5 of a kind)', () => {
   expect(scoreOptions[14].computeScore([1,1,1,1,1])).toBe(55);
 });
