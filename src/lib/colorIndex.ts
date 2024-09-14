@@ -5,6 +5,8 @@
  * 
  * It would make sense to store each pair in tuples, but then looking 
  * it up from tuples is annoying so I made it a map
+ * 
+ * WHEREAS [numberOnDie, colorIndex]
  */
 
 const colorIndex = new Map([

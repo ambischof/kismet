@@ -6,7 +6,7 @@ interface ScoringOptions {
   name: string;
   scoring: string;
   section: number;
-  computeScore: (numbers: Array<number>) => number;
+  computeScore: (numbers: [number,number,number,number,number]) => number;
 }
 /**
  * @type {ScoringOptions[]}
