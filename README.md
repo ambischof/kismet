@@ -14,4 +14,4 @@ I spent no time in making this look good. I also didn't try to add in other game
 
 
 ## Demo
-Github pages is set up to point to the docs folder which holds the demo
+Github pages is set up to point to the docs folder which holds the demo https://ambischof.github.io/kismet/

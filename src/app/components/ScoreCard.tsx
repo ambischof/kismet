@@ -2,10 +2,10 @@ import React, { ReactElement } from 'react';
 import ScoreCell from './ScoreCell';
 import scoringOptions, { ScoringOptions } from '../../lib/scoreOptions';
 import ordinals from '../../lib/ordinals';
-import {type GameManagerr} from './GameManager';
+import {type GameManagerType} from './GameManager';
 
 
-export default function ScoreCard({gameManager} : {gameManager: GameManagerr }) {
+export default function ScoreCard({gameManager} : {gameManager: GameManagerType }) {
   // Scoring option input markup
   const soEntryCells = scoringOptions.map(so => {
     return gameManager.games.map( g => {
