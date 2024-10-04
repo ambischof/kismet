@@ -1,29 +1,35 @@
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[2].oneOf[14].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[2].oneOf[14].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[2].oneOf[14].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[2].oneOf[14].use[5]!./src/app/page.scss ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-.sidelabels {
-  width: 40%;
-  border-top-width: 0px;
-  border-color: black;
-  border-style: solid;
-}
-.sidelabels col:first-child {
-  min-width: 1.5rem;
-}
-.sidelabels col:nth-child(2) {
-  border-left-width: 3px;
-}
-
-.scorecols > col {
-  width: 10%;
-}
-
 .section-results tr:last-child td {
   border-bottom-width: 3px;
 }
 
 #trad-scorecard {
+  display: grid;
+  width: 100%;
   max-width: 800px;
+  grid-template-columns: 3rem 37% auto auto auto auto auto auto;
+}
+#trad-scorecard hr {
+  grid-column: 1/-1;
+}
+#trad-scorecard .cell {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border: 1px solid black;
+  border-top: 0;
+  border-left: 0;
+}
+#trad-scorecard .headercell {
+  font-weight: bold;
+  text-align: center;
+  border-width: 0;
+  border-bottom-width: 1px;
+  align-content: center;
+}
+#trad-scorecard .double-column {
+  grid-column: span 2;
 }
 #trad-scorecard .results-section-label {
   text-align: right;
@@ -32,41 +38,25 @@
 #trad-scorecard thead th {
   border-width: 0px;
 }
-#trad-scorecard td, #trad-scorecard th {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-#trad-scorecard td.input-cell {
+#trad-scorecard .input-cell {
   padding-left: 0;
   padding-right: 0;
-}
-#trad-scorecard table {
-  width: 100%;
-  border-collapse: collapse;
-}
-#trad-scorecard table td {
-  border: 1px solid black;
   /* Chrome, Safari, Edge, Opera */
   /* Firefox */
 }
-#trad-scorecard table td input {
+#trad-scorecard .input-cell input {
   width: 100%;
   border: 0px;
 }
-#trad-scorecard table td input::-webkit-outer-spin-button,
-#trad-scorecard table td input::-webkit-inner-spin-button {
+#trad-scorecard .input-cell input::-webkit-outer-spin-button,
+#trad-scorecard .input-cell input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-#trad-scorecard table td input[type=number] {
+#trad-scorecard .input-cell input[type=number] {
   -moz-appearance: textfield;
 }
-#trad-scorecard table td:first-child {
-  width: 3rem;
-}
-#trad-scorecard tbody {
-  border-top: 3px solid black;
-}
-#trad-scorecard tfoot {
-  border-top: 2px solid black;
+#trad-scorecard .six-column {
+  grid-column: span 6;
+  border-right: 0;
 }

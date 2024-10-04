@@ -13,18 +13,19 @@ function ScoreCell (params, changeValue) {
 
   if (params.isDone || !params.isStarted) {
     return (
-      <td 
+      <div 
+        className="cell"
         data-id={uniqueId} 
         key={uniqueId}
         data-game={params.gameId} 
         data-scoreop={params.scoreOptionId}
       >
       {renderedValue}
-    </td>)
+    </div>)
   }
 
   else return (
-    <td className="input-cell" data-id={uniqueId} key={uniqueId}>
+    <div className="cell input-cell" data-id={uniqueId} key={uniqueId}>
       <input 
         data-game={params.gameId} 
         data-scoreop={params.scoreOptionId}
@@ -33,7 +34,7 @@ function ScoreCell (params, changeValue) {
         onChange={onChange}
       >
       </input>
-    </td>)
+    </div>)
   }
 
   export default ScoreCell;
