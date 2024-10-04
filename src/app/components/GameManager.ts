@@ -16,7 +16,7 @@ interface Game {
   slots: ScoreSlot[];
 }
 
-interface GameManagerr {
+interface GameManagerType {
   games: Game[];
   kismetSectionItems: ScoringOptions[];
   basicSectionItems: ScoringOptions[];
@@ -29,12 +29,12 @@ interface GameManagerr {
   scoreChangeHander: (g: Game, slotId: number, score: number) => void;
 }
 
-export type {Game, GameManagerr};
+export type {Game, GameManagerType};
 
 /**
  * Contains the state and logic of the games
  */
-export default function GameManager () : GameManagerr  {
+export default function GameManager () : GameManagerType  {
 
 
   /**
