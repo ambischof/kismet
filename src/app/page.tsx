@@ -2,20 +2,23 @@
 import _ from 'lodash';
 import './page.scss'
 import ScoreCard from './components/ScoreCard';
-import GameManager from './components/GameManager';
-import React from 'react';
-
+import GameReducer, {initializer} from './components/GameReducer';
+import {useReducer} from 'react';
 
 export default function Home() {
-
-  const gameManager = GameManager();
-  const scoreCard = ScoreCard({gameManager});
+  const [gameState, dispatch] = useReducer(GameReducer, {games: [], GAME_COUNT: 3}, initializer);
 
 
-  // TODO use grid layout. Table doesn't get the spacing right easily
+
+  // TODO rethink the layout. Make mobile friendly!!
   return (
     <main>
-      {scoreCard}
+      <ScoreCard
+        gameState={gameState}
+        dispatch={dispatch}
+      />
     </main>
   )
 }
+
+

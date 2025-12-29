@@ -1,16 +1,23 @@
-import React, { ReactElement } from 'react';
+import React, { Dispatch, ReactElement } from 'react';
 import ScoreCell from './ScoreCell';
 import scoringOptions, { ScoringOptions } from '../../lib/scoreOptions';
 import ordinals from '../../lib/ordinals';
-import {type GameManagerType} from './GameManager';
+import {type GameState, GameAction} from './GameReducer';
+import gameUtil from '../../lib/gameUtil';
 
 
-export default function ScoreCard({gameManager} : {gameManager: GameManagerType }) {
+type ScoreCardOptions = {
+  gameState: GameState,
+  dispatch: Dispatch<GameAction>
+};
+
+export default function ScoreCard(options:ScoreCardOptions) {
+  const {gameState, dispatch} = options;
   // Scoring option input markup
   const soEntryCells = scoringOptions.map(so => {
-    return gameManager.games.map( g => {
+    return gameState.games.map( g => {
       function onScoreChange (slotId: number, score: number) {
-        gameManager.scoreChangeHander(g, slotId, score);
+        dispatch({type: 'updateScore', game: g, slotId, score });
       }
 
       return ScoreCell({
@@ -31,8 +38,8 @@ export default function ScoreCard({gameManager} : {gameManager: GameManagerType 
       {soEntryCells[so.id]}
     </tr>
   }
-  const basicSectionMarkup = gameManager.basicSectionItems.map(mapper);
-  const kismetSectionMarkup = gameManager.kismetSectionItems.map(mapper);
+  const basicSectionMarkup = gameUtil.getBasicSectionItems().map(mapper);
+  const kismetSectionMarkup = gameUtil.getKismetSectionItems().map(mapper);
 
   
 
@@ -49,30 +56,30 @@ export default function ScoreCard({gameManager} : {gameManager: GameManagerType 
   }
 
   // Make all the score rows
-  const bsbbc = gameManager.games.map(game => {
-    return makeScoreCell(game.id, gameManager.getBasicBaseScore(game));
+  const bsbbc = gameState.games.map(game => {
+    return makeScoreCell(game.id, gameUtil.getBasicBaseScore(game));
   });
 
   const basicSectionBaseMarkup = makeSectionLabel('Total', bsbbc);
-  const bstc = gameManager.games.map(game => {
-    return makeScoreCell(game.id, gameManager.getBasicTotalScore(game));
+  const bstc = gameState.games.map(game => {
+    return makeScoreCell(game.id, gameUtil.getBasicTotalScore(game));
   });
 
   const basicSectionTotalMarkup = makeSectionLabel('Basic Section Total', bstc);
 
-  const bsbc = gameManager.games.map(game => {
+  const bsbc = gameState.games.map(game => {
     // return makeSectionLabel('Bonus', game.id, getBasicBonusScore(game));
-    return makeScoreCell(game.id, gameManager.getBasicBonusScore(game));
+    return makeScoreCell(game.id, gameUtil.getBasicBonusScore(game));
   });
   const basicSectionBonusMarkup = makeSectionLabel('Bonus', bsbc)
 
-  const kstc = gameManager.games.map(game => {
-    return makeScoreCell(game.id, gameManager.getKismetTotalScore(game));
+  const kstc = gameState.games.map(game => {
+    return makeScoreCell(game.id, gameUtil.getKismetTotalScore(game));
   });
   const kismetSectionTotalMarkup = makeSectionLabel('Kismet Section Total', kstc)
 
-  const tsm = gameManager.games.map(game => {
-    const total = gameManager.getBasicTotalScore(game) + gameManager.getKismetTotalScore(game);
+  const tsm = gameState.games.map(game => {
+    const total = gameUtil.getBasicTotalScore(game) + gameUtil.getKismetTotalScore(game);
     return makeScoreCell(game.id, total);
   })
   const totalSectionMarkup = makeSectionLabel('Game Total', tsm)
@@ -80,12 +87,12 @@ export default function ScoreCard({gameManager} : {gameManager: GameManagerType 
 
 
   // make the col and label rows
-  const gameCols = gameManager.games.map(g => {
+  const gameCols = gameState.games.map(g => {
     const className = (!g.isDone && g.isStarted) ? 'active-game' : 'inactive-game';
     return <col key={g.id} className={className}></col>;
   });
 
-  const gameLabels = gameManager.games.map(g => {
+  const gameLabels = gameState.games.map(g => {
     return <th key={g.id}>{ordinals[g.id]} Game</th>;
   });
 
