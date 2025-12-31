@@ -116,8 +116,8 @@ export default function ScoreCard(options:ScoreCardOptions) {
 
       <table>
         <colgroup className="sidelabels">
-          <col></col>
-          <col></col>
+          <col id="number-column"></col>
+          <col id="name-column"></col>
         </colgroup>
         <colgroup className="scorecols">
           {gameCols}

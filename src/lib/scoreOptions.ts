@@ -79,7 +79,7 @@ const scoringOptions: ScoringOptions[] = [
     section: 2,
     computeScore (numbers) {
       // see if there are two pairs
-      const sortedNumbers = numbers.sort();
+      const sortedNumbers = [...numbers].sort();
       let pairedNumbers : Array<number> = [];
       for (let i = 0; i < numbers.length; i++) {
         if (sortedNumbers[i] === sortedNumbers[i+1]) {

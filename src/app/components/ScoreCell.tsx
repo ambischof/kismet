@@ -1,4 +1,4 @@
-import { isUndefined } from "lodash";
+import { isNumber } from "lodash";
 // import { ChangeEvent } from "react";
 
 
@@ -16,11 +16,13 @@ type ScoreCellParams = {
 function ScoreCell (params: ScoreCellParams) {
   const {
     gameId,
+    scoreOptionId,
     score,
-    changeValue,
-    computeCellScore,
+    isDone,
+    isStarted, 
     hasHand,
-    scoreOptionId
+    computeCellScore,
+    changeValue
   } = params;
   // function onChange (e: ChangeEvent<HTMLInputElement>) {
   //   let value = Number(e.target.value);
@@ -33,27 +35,39 @@ function ScoreCell (params: ScoreCellParams) {
     changeValue(scoreOptionId, computeCellScore(scoreOptionId));
   }
 
-  const uniqueId = `${gameId}-${params.scoreOptionId}`;
+  const isGameActive = isStarted && !isDone;
+
+  // if this cell already has a score
+  const hasScore = isNumber(score);
+
+  const uniqueId = `${gameId}-${scoreOptionId}`;
 
   // the possible cell score based on the current working hand
   const possibleCellScore = hasHand? computeCellScore(scoreOptionId) : '';
-  const className = [];
-  if (hasHand) {
-    className.push('possible-score');
-    if (!!possibleCellScore) className.push('good-score');
-  }
   
+  const cellClasses = [];
+
+  // if ellidgible for the working hand's score
+  if (hasHand && isGameActive && !hasScore) {
+    cellClasses.push('possible-score');
+    if (!!possibleCellScore) cellClasses.push('good-score');
+  }
+  if (isGameActive) {
+    cellClasses.push('active-game-cell');
+  }
 
   // When empty, the value in DOM should be '', not undefined.
-  const renderedValue = isUndefined(params.score)? '' : params.score;
+  const renderedValue = hasScore? score : '';
 
-  if (params.isDone || !params.isStarted || !Number.isNaN(score)) {
+  // read-only if game is not active or if score is already filled
+  if (!isGameActive || isNumber(score)) {
     return (
       <td 
         data-id={uniqueId} 
         key={uniqueId}
         data-game={gameId} 
-        data-scoreop={params.scoreOptionId}
+        data-scoreop={scoreOptionId}
+        className={cellClasses.join(' ')}
       >
       {renderedValue}
     </td>)
@@ -62,12 +76,12 @@ function ScoreCell (params: ScoreCellParams) {
   else return (
     <td 
       data-game={gameId} 
-      data-scoreop={params.scoreOptionId}
+      data-scoreop={scoreOptionId}
       data-id={uniqueId} 
       key={uniqueId}
       tabIndex={hasHand? 0 : undefined}
       aria-role= {hasHand? 'button': undefined}
-      className={className.join(' ')}
+      className={cellClasses.join(' ')}
       onClick={hasHand? onClickPossible : undefined}
     >
     {possibleCellScore}
