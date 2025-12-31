@@ -186,6 +186,9 @@ export default function gameReducer(gameState: GameState, action: GameAction) : 
       if (gameUtils.isGameComplete(game)) {
         newState.games = finishGame(game, newState);
       }
+
+      newState.workingHand = null;
+      newState.canRerollHand = false;
       return newState;
     }
   }

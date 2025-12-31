@@ -2,6 +2,14 @@ import {useState} from 'react';
 import _ from 'lodash'
 import dieSymbols from '../../lib/dieSymbols';
 
+/********************* 
+ * 
+ * TODO: Display dice in color, for certain combinations.
+ * 
+ * TODO: make sure dice selection is clear after 
+ * score selection is made
+*/
+
 
 type Hand = [number,number,number,number,number]; 
 

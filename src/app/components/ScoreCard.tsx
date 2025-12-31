@@ -13,6 +13,14 @@ type ScoreCardOptions = {
 
 export default function ScoreCard(options:ScoreCardOptions) {
   const {gameState, dispatch} = options;
+
+  // get what the value of the cell would be based on the 
+  // working hand
+  function computeCellScore(scoreOptionId: number) : number|null {
+    if (!gameState.workingHand) return null;
+    return scoringOptions[scoreOptionId].computeScore(gameState.workingHand)
+  }
+
   // Scoring option input markup
   const soEntryCells = scoringOptions.map(so => {
     return gameState.games.map( g => {
@@ -20,13 +28,19 @@ export default function ScoreCard(options:ScoreCardOptions) {
         dispatch({type: 'updateScore', game: g, slotId, score });
       }
 
-      return ScoreCell({
-        gameId: g.id,
-        scoreOptionId: so.id,
-        score: g.slots[so.id].score,
-        isDone: g.isDone,
-        isStarted: g.isStarted
-      }, onScoreChange);
+      return (
+        <ScoreCell 
+          key={`${g.id}-${so.id}`}
+          gameId={g.id}
+          scoreOptionId={so.id}
+          score= {g.slots[so.id].score}
+          isDone= {g.isDone}
+          isStarted = {g.isStarted}
+          hasHand = {Array.isArray(gameState.workingHand)}
+          computeCellScore = {computeCellScore}
+          changeValue = {onScoreChange}
+        />
+      )
     })
   });
 

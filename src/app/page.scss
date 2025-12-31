@@ -48,6 +48,18 @@ $max-width: 800px;
     border-collapse: collapse;
     td {
       border: 1px solid black;
+
+      &.possible-score {
+        color: blue;
+        background-color: rgba(224, 255, 255,.5);
+        cursor:pointer;
+      }
+      &.good-score {
+        background-color: rgb(224, 255, 255);
+        font-weight: bold;
+      }
+      
+      // the score cell input
       input {
         width: 100%;
         border: 0px;
