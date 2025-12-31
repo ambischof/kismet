@@ -2,26 +2,40 @@ import _ from 'lodash';
 import scoringOptions from '../../lib/scoreOptions';
 import gameUtils from '../../lib/gameUtil';
 
-interface ScoreSlot {
+type Hand = [number,number,number,number,number]; 
+type ScoreSlot = {
   score: number
 }
 
-interface Game {
+type Game = {
   id: number;
   isDone: boolean;
   isStarted: boolean;
   slots: ScoreSlot[];
 }
-interface GameState {
-  games: Game[],
-  GAME_COUNT: number
+type GameState = {
+  games: Game[];
+  GAME_COUNT: number;
+  workingHand: Hand | null;
+  canRerollHand: boolean;
+}
+type RollAction = {
+  type: 'roll';
+}
+type RerollAction = {
+  type: 'reroll';
+  rerollIndicies: Array<number>; // the indicies of the dice to reroll
+}
+type UpdateHandAction = {
+  type: 'updateHand';
+  workingHand: Hand;
 }
 
-interface ScoreUpdateAction {
-  type: 'updateScore',
-  game: Game,
-  slotId: number,
-  score: number
+type ScoreUpdateAction = {
+  type: 'updateScore';
+  game: Game;
+  slotId: number;
+  score: number;
 }
 // interface UpdateGameAction {
 //   type: 'update',
@@ -33,16 +47,13 @@ interface ScoreUpdateAction {
 // }
 
 type GameAction = 
-      ScoreUpdateAction ;
-      // | 
+      ScoreUpdateAction 
+      | RollAction
+      | UpdateHandAction 
+      | RerollAction;
       // UpdateGameAction | 
       // UpdateAllGamesAction;
 
-/**
-* 
-* @param {number} id 
-* @returns {Game}
-*/
 function makeGame(id : number) : Game {
   return {
     id,
@@ -61,6 +72,7 @@ function updateGameInArray(games:Game[], game: Game) : Game[] {
   return newGames;
 }
 
+// end the game and start next one if existing
 function finishGame(game : Game, gameState: GameState) {
   const clonedGame = _.cloneDeep(game);
   clonedGame.isDone = true;
@@ -78,7 +90,14 @@ function finishGame(game : Game, gameState: GameState) {
   return newGames;
 }
 
-function initializer (gameState: GameState) {
+// create initial state data, taking options into account
+// static function to the reducer
+function initializer (options: Partial<GameState>) {
+  if (!options) {options = {}}
+  
+  _.defaults(options, {games: [], workingHand: null, GAME_COUNT: 6});
+
+  const gameState : GameState = options as GameState; 
   const gameIds = _.times(gameState.GAME_COUNT, _.identity); // makes [0,1,2,3,4,5]
 
   const games = gameIds.map(makeGame);
@@ -88,6 +107,7 @@ function initializer (gameState: GameState) {
     games
   };
 }
+
 export {initializer};
 
 export type {GameState, GameAction, Game}
@@ -113,6 +133,45 @@ export default function gameReducer(gameState: GameState, action: GameAction) : 
     //   newState.games = newGames;
     //   return newState;
     // }
+    
+    case 'roll' : {
+      //I could do this DRYer with lodash _.times or _.fill but 
+      // I'm not sure it's worth using casting when TS throws a fit
+      const newHand : Hand =  [
+        _.random(1,6), 
+        _.random(1,6), 
+        _.random(1,6), 
+        _.random(1,6), 
+        _.random(1,6)
+      ]
+
+      return {
+        ...gameState,
+        canRerollHand: true,
+        workingHand: newHand
+      };
+    }
+
+    // Reroll just the dice specified, and end rerolling
+    case 'reroll' : {
+      let newHand = gameState.workingHand
+      for (let i of action.rerollIndicies) {
+        newHand[i] = _.random(1,6);
+      }
+      
+      return {
+        ...gameState,
+        canRerollHand: false,
+        workingHand: newHand
+      };
+    }
+
+    case 'updateHand': {
+      return {
+        ...gameState,
+        workingHand: action.workingHand
+      };      
+    }
 
     case 'updateScore': {
       const game = _.cloneDeep(action.game);

@@ -6,7 +6,11 @@ import scoringOptions from '../../../src/lib/scoreOptions';
 describe('gameReducer', function() {
   let gameState: GameState;
   beforeEach(()=>{
-      gameState = initializer({games: [], GAME_COUNT: 3});
+    gameState = initializer({
+      games: [], 
+      workingHand: null, 
+      GAME_COUNT: 3
+    });
   });
 
   it('should initialize correctly', ()=>{
@@ -45,5 +49,37 @@ describe('gameReducer', function() {
     game = updated.games[0];
     expect(game.isDone).toBe(true);
     expect(updated.games[1].isStarted).toBe(true);
+  });
+
+  it('should roll working hand', ()=>{
+    let newState = GameReducer(gameState, {type: 'roll'});
+    let workingHand = newState.workingHand;
+    expect(Array.isArray(workingHand)).toBe(true);
+    expect(workingHand).toHaveLength(5);
+    for (let num of workingHand) {
+      expect(num).toBeLessThanOrEqual(6);
+      expect(num).toBeGreaterThanOrEqual(1);
+    }
+  });
+
+  it('should reroll for working hand', ()=>{
+    // since the rolling is random, it makes it easier
+    // to deterministically test by mocking the random fn
+
+    //make sure it starts with all 2s, so we know initial values
+    let mock = jest.spyOn(_, "random").mockReturnValue(2);
+    let newState = GameReducer(gameState, {type: 'roll'});
+
+    // make sure all edited values are 3, so we can tell what changed
+    mock.mockReturnValue(3);
+
+    newState = GameReducer(newState, {
+        type: 'reroll',
+        rerollIndicies: [0,1]
+      });
+    // we are done with mock
+    mock.mockClear();
+
+    expect(newState.workingHand.join()).toBe('3,3,2,2,2');
   });
 });

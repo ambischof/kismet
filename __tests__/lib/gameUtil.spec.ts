@@ -21,17 +21,5 @@ describe('gameUtil', () => {
     let game = games[0];
 
     expect(gameUtil.isGameComplete(game)).toBe(false);
-  })
-  // let game : GameManagerType;
-  // beforeEach(()=>{
-  //   game = GameManager();   
-  // })
-  // it('should roll working hand', () => {
-  //   game.rollWorkingHand();
-  //   expect(Array.isArray(game.workingHand)).toBe(true);
-  //   for (let num of game.workingHand) {
-  //     expect(num).toBeLessThanOrEqual(6);
-  //     expect(num).toBeGreaterThanOrEqual(1);
-  //   }
-  // })
+  });
 })

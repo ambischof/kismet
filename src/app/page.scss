@@ -1,3 +1,5 @@
+$max-width: 800px;
+
 .sidelabels {
   width: 40%;
   col:first-child {
@@ -39,7 +41,8 @@
   }
 
   
-  max-width: 800px;
+  max-width: $max-width;
+
    table {
     width: 100%;
     border-collapse: collapse;
@@ -73,4 +76,49 @@
   }
 
 
+}
+#working-hand-dice {
+  display: flex;
+  justify-content:center; 
+  margin-right: 1rem;
+}
+#working-hand-controls {
+  display: flex;
+  align-items: center;
+}
+#working-hand-message {
+  text-align:center;
+}
+#working-hand-body {
+  display:flex;
+  flex-flow: row;
+  justify-content: center;
+}
+#working-hand-container {
+  max-width: $max-width;
+  padding: 1rem;
+
+  .die-symbol {
+    font-size: 40px;
+    line-height: .8;
+  }
+  .rolled-die {
+    margin: .5em;
+    height: 2.5rem;
+    width: 2.5rem;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    &.selected {
+     border: 2px solid cyan; 
+    }
+    &.selectable {
+      cursor: pointer;
+    }
+  }
+
+  .disabled-hand-controls {
+    visibility: hidden;
+  }
 }
