@@ -48,7 +48,7 @@ const scoringOptions: ScoringOptions[] = [
     id: 6,
     name: '2 pair - Same Color',
     scoring: 'Total All Dice',
-    section: 1
+    section: 2
   },
   {
     id: 7,
