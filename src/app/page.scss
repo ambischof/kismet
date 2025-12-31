@@ -110,17 +110,8 @@ $max-width: 800px;
   max-width: $max-width;
   padding: 1rem;
 
-  .die-symbol {
-    font-size: 40px;
-    line-height: .8;
-  }
   .rolled-die {
-    margin: .5em;
-    height: 2.5rem;
-    width: 2.5rem;
-    display:flex;
-    align-items: center;
-    justify-content: center;
+    margin-right: .5rem;
 
     &.selected {
      border: 2px solid cyan; 

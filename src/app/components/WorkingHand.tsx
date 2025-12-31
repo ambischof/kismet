@@ -58,7 +58,6 @@ export default function WorkingHand(options: WorkingHandOptions) {
     const diceMKU = workingHand.map((val, i) => {
       const selected = selectedState[i];
       const dieSymbol = dieSymbols[val];
-      
       const extraClasses = [];
       if (canRerollHand) {
         extraClasses.push('selectable');
@@ -72,7 +71,7 @@ export default function WorkingHand(options: WorkingHandOptions) {
           role={canRerollHand? 'button' : undefined}
           onClick={()=>onDieClick(i)}
           key={i}>
-          <span className="die-symbol">{dieSymbol}</span>
+          <img src={dieSymbol.src} height={50} width={50} />
           
         </div>
       )
