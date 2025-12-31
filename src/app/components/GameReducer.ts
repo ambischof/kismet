@@ -2,26 +2,26 @@ import _ from 'lodash';
 import scoringOptions from '../../lib/scoreOptions';
 import gameUtils from '../../lib/gameUtil';
 
-interface ScoreSlot {
-  score: number
+type ScoreSlot = {
+  score: number;
 }
 
-interface Game {
+type Game = {
   id: number;
   isDone: boolean;
   isStarted: boolean;
   slots: ScoreSlot[];
 }
-interface GameState {
-  games: Game[],
-  GAME_COUNT: number
+type GameState = {
+  games: Game[];
+  GAME_COUNT: number;
 }
 
-interface ScoreUpdateAction {
-  type: 'updateScore',
-  game: Game,
-  slotId: number,
-  score: number
+type ScoreUpdateAction = {
+  type: 'updateScore';
+  game: Game;
+  slotId: number;
+  score: number;
 }
 // interface UpdateGameAction {
 //   type: 'update',
@@ -38,11 +38,7 @@ type GameAction =
       // UpdateGameAction | 
       // UpdateAllGamesAction;
 
-/**
-* 
-* @param {number} id 
-* @returns {Game}
-*/
+
 function makeGame(id : number) : Game {
   return {
     id,
