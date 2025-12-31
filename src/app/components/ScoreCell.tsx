@@ -1,7 +1,16 @@
 import { isUndefined } from "lodash";
+import { ChangeEvent } from "react";
 
-function ScoreCell (params, changeValue) {
-  function onChange (e) {
+type ScoreCellParams = {
+  gameId: number;
+  scoreOptionId: number;
+  score: number;
+  isDone: boolean;
+  isStarted: boolean;
+}
+
+function ScoreCell (params: ScoreCellParams, changeValue: (slotId: number, score: number)=>void) {
+  function onChange (e: ChangeEvent<HTMLInputElement>) {
     let value = Number(e.target.value);
     if (Number.isNaN(value)) value = undefined;
     changeValue(params.scoreOptionId, value)

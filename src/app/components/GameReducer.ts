@@ -4,7 +4,7 @@ import gameUtils from '../../lib/gameUtil';
 
 type Hand = [number,number,number,number,number]; 
 type ScoreSlot = {
-  score: number
+  score: number;
 }
 
 type Game = {

@@ -2,10 +2,10 @@ import _ from 'lodash';
 import scoringOptions from './scoreOptions';
 import makeBasicBonus from './makeBasicBonus';
 
-interface ScoreSlot {
-  score: number
+type ScoreSlot = {
+  score: number;
 }
-interface Game {
+type Game = {
   id: number;
   isDone: boolean;
   isStarted: boolean;
