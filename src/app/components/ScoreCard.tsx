@@ -1,4 +1,5 @@
 import React, { Dispatch, ReactElement } from 'react';
+import {find} from 'lodash';
 import ScoreCell from './ScoreCell';
 import scoringOptions, { ScoringOptions } from '../../lib/scoreOptions';
 import ordinals from '../../lib/ordinals';
@@ -13,6 +14,8 @@ type ScoreCardOptions = {
 
 export default function ScoreCard(options:ScoreCardOptions) {
   const {gameState, dispatch} = options;
+
+  let currentActiveGame :number = find(gameState.games, {isStarted: true}).id;
 
   // get what the value of the cell would be based on the 
   // working hand
@@ -65,8 +68,10 @@ export default function ScoreCard(options:ScoreCardOptions) {
   }
 
   // base template for a total score cell
-  function makeScoreCell(key: number, content: number) {
-    return <td key={key}>{content}</td>;
+  function makeScoreCell(gameId: number, content: number) {
+    const isActive = gameId === currentActiveGame;
+    const className = isActive? 'active-game-cell' : '';
+    return <td key={gameId} className={className}>{content}</td>;
   }
 
   // Make all the score rows

@@ -49,6 +49,10 @@ $max-width: 800px;
     td {
       border: 1px solid black;
 
+      &.active-game-cell {
+        background-color: white;
+      }
+
       &.possible-score {
         color: blue;
         background-color: rgba(224, 255, 255,.5);
@@ -113,8 +117,8 @@ $max-width: 800px;
   .rolled-die {
     margin-right: .5rem;
 
-    &.selected {
-     border: 2px solid cyan; 
+    &.selected img {
+     outline: 2px solid cyan; 
     }
     &.selectable {
       cursor: pointer;

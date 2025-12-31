@@ -80,7 +80,7 @@ function ScoreCell (params: ScoreCellParams) {
       data-id={uniqueId} 
       key={uniqueId}
       tabIndex={hasHand? 0 : undefined}
-      aria-role= {hasHand? 'button': undefined}
+      role= {hasHand? 'button': undefined}
       className={cellClasses.join(' ')}
       onClick={hasHand? onClickPossible : undefined}
     >
