@@ -18,6 +18,8 @@ type GameState = {
   GAME_COUNT: number;
   workingHand: Hand | null;
   canRerollHand: boolean;
+  activeGame: number | null;
+  optionsLeft: number; //to help with resetting workingHand when option is selected.
 }
 type RollAction = {
   type: 'roll';
@@ -86,7 +88,10 @@ function finishGame(game : Game, gameState: GameState) {
     clonedNextGame.isStarted = true;
     
     newGames = updateGameInArray(newGames, clonedNextGame);
+    gameState.activeGame = clonedNextGame.id;
   }
+  else gameState.activeGame = null;
+
   return newGames;
 }
 
@@ -95,13 +100,20 @@ function finishGame(game : Game, gameState: GameState) {
 function initializer (options: Partial<GameState>) {
   if (!options) {options = {}}
   
-  _.defaults(options, {games: [], workingHand: null, GAME_COUNT: 6});
+  _.defaults(options, {
+    games: [], 
+    workingHand: null, 
+    GAME_COUNT: 6,
+    activeGame: 0,
+    optionsLeft: scoringOptions.length,
+    canRerollHand: false
+  });
 
   const gameState : GameState = options as GameState; 
   const gameIds = _.times(gameState.GAME_COUNT, _.identity); // makes [0,1,2,3,4,5]
 
   const games = gameIds.map(makeGame);
-
+  
   return {
     ...gameState,
     games
@@ -189,6 +201,8 @@ export default function gameReducer(gameState: GameState, action: GameAction) : 
 
       newState.workingHand = null;
       newState.canRerollHand = false;
+
+      newState.optionsLeft = gameState.optionsLeft - 1;
       return newState;
     }
   }

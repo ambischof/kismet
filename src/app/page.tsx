@@ -27,6 +27,7 @@ export default function Home() {
         dispatch={dispatch}
       />
       <WorkingHand 
+        key={gameState.optionsLeft}
         canRerollHand={gameState.canRerollHand}
         workingHand={gameState.workingHand}
         doRoll={doRoll}

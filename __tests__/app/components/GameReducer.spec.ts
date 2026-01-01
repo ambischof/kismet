@@ -82,4 +82,28 @@ describe('gameReducer', function() {
 
     expect(newState.workingHand.join()).toBe('3,3,2,2,2');
   });
+
+  it('should update optionsLeft', ()=>{
+    const totalSlots = gameState.games[0].slots.length;
+    expect(gameState.optionsLeft).toBe(totalSlots);
+    let newState = GameReducer(gameState, {
+      type: 'updateScore', 
+      game: gameState.games[0],
+      slotId: 0,
+      score: 3
+    });
+    expect(newState.optionsLeft).toBe(totalSlots - 1);
+  });
+
+  it('should update canRerollHand', ()=> {
+    expect(gameState.canRerollHand).toBe(false);
+    gameState = GameReducer(gameState, {type: 'roll'});
+    expect(gameState.canRerollHand).toBe(true);
+    gameState = GameReducer(gameState, {
+      type: 'reroll',
+      rerollIndicies: [1]
+    });
+    
+    expect(gameState.canRerollHand).toBe(false);
+  });
 });

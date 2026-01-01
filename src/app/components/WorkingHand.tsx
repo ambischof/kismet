@@ -2,12 +2,6 @@ import {useState} from 'react';
 import _ from 'lodash'
 import dieSymbols from '../../lib/dieSymbols';
 
-/********************* 
- * TODO: make sure dice selection is clear after 
- * score selection is made
-*/
-
-
 type Hand = [number,number,number,number,number]; 
 
 type WorkingHandOptions = {
