@@ -74,25 +74,39 @@ function updateGameInArray(games:Game[], game: Game) : Game[] {
   return newGames;
 }
 
-// end the game and start next one if existing
-function finishGame(game : Game, gameState: GameState) {
-  const clonedGame = _.cloneDeep(game);
-  clonedGame.isDone = true;
+function startNextGame(gameState) {
+  const nextGame = gameState.games[gameState.activeGame + 1];
+  const clonedNextGame = {...nextGame};
+  
+  clonedNextGame.isStarted = true;
+  
+  return {
+    ...gameState,
+    games: updateGameInArray(clonedNextGame, clonedNextGame),
+    activeGame: clonedNextGame.id,
+    optionsLeft: scoringOptions.length
+  };
+}
 
-  let newGames = updateGameInArray(gameState.games, clonedGame);
+// end the game and start next one if existing
+function finishGame(gameState: GameState) : GameState {
+  const game = gameState.games[gameState.activeGame];
+
+  const clonedGame = {
+    ...game,
+    isDone: true
+  }
+
+  let newGameState: GameState = {...gameState};
+  newGameState.games = updateGameInArray(gameState.games, clonedGame);
 
   // if there is a next game, start it
   if (game.id < (gameState.GAME_COUNT - 1)) {
-    const clonedNextGame = _.cloneDeep(gameState.games[game.id + 1]);
-    
-    clonedNextGame.isStarted = true;
-    
-    newGames = updateGameInArray(newGames, clonedNextGame);
-    gameState.activeGame = clonedNextGame.id;
+    newGameState = startNextGame(newGameState);
   }
-  else gameState.activeGame = null;
+  else newGameState.activeGame = null;
 
-  return newGames;
+  return newGameState;
 }
 
 // create initial state data, taking options into account
@@ -124,7 +138,7 @@ export {initializer};
 
 export type {GameState, GameAction, Game}
 
-export default function gameReducer(gameState: GameState, action: GameAction) : GameState {
+function gameReducer(gameState: GameState, action: GameAction) : GameState {
   switch (action.type) {
     // case 'update' : {
     //   // replace the game in the array with the new one
@@ -196,7 +210,7 @@ export default function gameReducer(gameState: GameState, action: GameAction) : 
       // check if game is complete, if so, finish game
       // and maybe start new one
       if (gameUtils.isGameComplete(game)) {
-        newState.games = finishGame(game, newState);
+        newState = finishGame(newState);
       }
 
       newState.workingHand = null;
@@ -207,3 +221,6 @@ export default function gameReducer(gameState: GameState, action: GameAction) : 
     }
   }
 }
+
+
+export default gameReducer;
