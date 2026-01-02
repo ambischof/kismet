@@ -6,12 +6,17 @@ type Hand = [number,number,number,number,number];
 type WorkingHandOptions = {
   workingHand: Hand | null;
   canRerollHand: boolean;
+  needReset: boolean;
   doRoll: ()=>void;
   doReroll: (indicies:Array<number>)=>void;
+  doReset: ()=>void;
 }
 
 export default function WorkingHand(options: WorkingHandOptions) {
-  let {workingHand, canRerollHand, doRoll, doReroll} = options;
+  let {
+    workingHand, canRerollHand, needReset, 
+    doRoll, doReroll, doReset
+  } = options;
   
   // which dice are selected
   const [selectedState, setSelctedState] = 
@@ -44,7 +49,31 @@ export default function WorkingHand(options: WorkingHandOptions) {
     clearSelection();
   }
 
-  if (workingHand) {
+  function onResetClick() {
+    if (needReset) doReset();
+  }
+
+  if (needReset) {
+    return (
+      <div id="working-hand-container">
+        <div id="working-hand-body">
+          <div id="working-hand-controls">
+            <button 
+              id="roll-hand"  
+              type="button" 
+              onClick={onResetClick}>
+              Start Over!
+            </button>
+          </div>
+        </div>
+        <div id="working-hand-message">
+          Do you want to start over?
+        </div>
+      </div>
+    )
+  }
+
+  else if (workingHand) {
     const diceMKU = workingHand.map((val, i) => {
       const selected = selectedState[i];
       const dieSymbol = dieSymbols[val];

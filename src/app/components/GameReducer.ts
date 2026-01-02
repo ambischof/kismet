@@ -39,6 +39,10 @@ type ScoreUpdateAction = {
   slotId: number;
   score: number;
 }
+
+type ResetAction = {
+  type: 'reset'
+}
 // interface UpdateGameAction {
 //   type: 'update',
 //   game: Game
@@ -52,7 +56,8 @@ type GameAction =
       ScoreUpdateAction 
       | RollAction
       | UpdateHandAction 
-      | RerollAction;
+      | RerollAction
+      | ResetAction;
       // UpdateGameAction | 
       // UpdateAllGamesAction;
 
@@ -218,6 +223,10 @@ function gameReducer(gameState: GameState, action: GameAction) : GameState {
 
       newState.optionsLeft = gameState.optionsLeft - 1;
       return newState;
+    }
+
+    case 'reset': {
+      return initializer({GAME_COUNT: gameState.GAME_COUNT});
     }
   }
 }

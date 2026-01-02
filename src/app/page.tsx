@@ -18,6 +18,10 @@ export default function Home() {
     dispatch({type: 'reroll', rerollIndicies: indicies});
   }
 
+  function doReset() {
+    dispatch({type: 'reset'});
+  }
+
 
   // TODO rethink the layout. Make mobile friendly!!
   return (
@@ -30,8 +34,10 @@ export default function Home() {
         key={gameState.optionsLeft}
         canRerollHand={gameState.canRerollHand}
         workingHand={gameState.workingHand}
+        needReset={_.isNull(gameState.activeGame)}
         doRoll={doRoll}
         doReroll={doReroll}
+        doReset={doReset}
       />
     </main>
   )
