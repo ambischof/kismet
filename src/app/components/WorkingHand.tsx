@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import _ from 'lodash'
 import dieSymbols from '../../lib/dieSymbols';
 
 type Hand = [number,number,number,number,number]; 
@@ -68,7 +67,7 @@ export default function WorkingHand(options: WorkingHandOptions) {
       )
     });
 
-    const message = canRerollHand? 'Select any dice to reroll' : '';
+    const message = canRerollHand? 'Select any dice to reroll or select a combination' : 'Select a combination';
     const handControlClass= canRerollHand? '' :'disabled-hand-controls';
   
     return (
@@ -92,9 +91,8 @@ export default function WorkingHand(options: WorkingHandOptions) {
         <div id="working-hand-message">{message}</div>
       </div>
     )
-
-    
   }
+  
   // when dice are not rolled yet
   else return (
     <div id="working-hand-container">

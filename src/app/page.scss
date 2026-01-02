@@ -114,6 +114,10 @@ $max-width: 800px;
   max-width: $max-width;
   padding: 1rem;
 
+  .working-hand-message {
+    font-size: 80%;
+    color: darkslategray;
+  }
   .rolled-die {
     margin-right: .5rem;
 
