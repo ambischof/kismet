@@ -93,6 +93,7 @@ $max-width: 800px;
 
 
 }
+
 #working-hand-dice {
   display: flex;
   justify-content:center; 
@@ -133,3 +134,29 @@ $max-width: 800px;
     visibility: hidden;
   }
 }
+
+
+
+/*************  About Dialog  *****************/
+#open-about-dialog-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#about-dialog {
+  width: 30rem;
+  height: 18rem;
+  max-width: calc(100vw - 3rem);
+  max-height: calc(100vh - 3rem);
+  margin: 3rem auto;
+
+  p {
+    padding: .5em 1em;
+  }
+}
+#about-dialog-header {
+  text-align: right;
+  margin: .5rem;
+}
+
