@@ -1,23 +1,23 @@
-import React, { Dispatch, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import ScoreCell from './ScoreCell';
 import scoringOptions, { ScoringOptions } from '../../lib/scoreOptions';
 import ordinals from '../../lib/ordinals';
-import {type GameState, GameAction} from './GameReducer';
+import {type GameState, Game} from './GameReducer';
 import gameUtil from '../../lib/gameUtil';
 
 
 type ScoreCardOptions = {
-  gameState: GameState,
-  dispatch: Dispatch<GameAction>
+  gameState: GameState;
+  doUpdateScore: (game: Game, slotId: number, score: number)=>void;
 };
 
 export default function ScoreCard(options:ScoreCardOptions) {
-  const {gameState, dispatch} = options;
+  const {gameState, doUpdateScore} = options;
   // Scoring option input markup
   const soEntryCells = scoringOptions.map(so => {
     return gameState.games.map( g => {
       function onScoreChange (slotId: number, score: number) {
-        dispatch({type: 'updateScore', game: g, slotId, score });
+        doUpdateScore(g, slotId, score);
       }
 
       return ScoreCell({
