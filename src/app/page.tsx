@@ -1,6 +1,6 @@
 'use client';
 import _ from 'lodash';
-import './page.scss'
+import './page.css'
 import ScoreCard from './components/ScoreCard';
 import GameReducer, {Game, initializer} from './components/GameReducer';
 import WorkingHand from './components/WorkingHand';
