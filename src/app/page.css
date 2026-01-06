@@ -1,5 +1,3 @@
-$max-width: 800px;
-
 .sidelabels {
   width: 40%;
   col:first-child {
@@ -41,7 +39,7 @@ $max-width: 800px;
   }
 
   
-  max-width: $max-width;
+  max-width: 50rem;
 
    table {
     width: 100%;
@@ -112,7 +110,7 @@ $max-width: 800px;
   justify-content: center;
 }
 #working-hand-container {
-  max-width: $max-width;
+  max-width: 50rem;
   padding: 1rem;
 
   .working-hand-message {
