@@ -79,7 +79,7 @@ function updateGameInArray(games:Game[], game: Game) : Game[] {
   return newGames;
 }
 
-function startNextGame(gameState) {
+function startNextGame(gameState: GameState) {
   const nextGame = gameState.games[gameState.activeGame + 1];
   const clonedNextGame = {...nextGame};
   
@@ -87,7 +87,7 @@ function startNextGame(gameState) {
   
   return {
     ...gameState,
-    games: updateGameInArray(clonedNextGame, clonedNextGame),
+    games: updateGameInArray(gameState.games, clonedNextGame),
     activeGame: clonedNextGame.id,
     optionsLeft: scoringOptions.length
   };
