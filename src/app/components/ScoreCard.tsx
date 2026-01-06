@@ -59,7 +59,7 @@ export default function ScoreCard(options:ScoreCardOptions) {
 
   
 
-  function makeSectionLabel(title: string, cells: ReactElement[]) {
+  function makeSectionLabel(title: string, cells: ReactElement<any>[]) {
     return <tr>
       <td colSpan={2} className="results-section-label">{title}</td>
       {cells}

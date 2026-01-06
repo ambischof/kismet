@@ -15,6 +15,7 @@ export default function AboutDialog() {
       ?
     </button>
 
+
     <dialog id="about-dialog" ref={dialog} closedby="any">
       <div id="about-dialog-header">
         <button 
