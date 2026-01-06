@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import ScoreCard from './components/ScoreCard';
-import GameReducer, {Game, initializer} from './components/GameReducer';
-import WorkingHand from './components/WorkingHand';
+import ScoreCard from './ScoreCard';
+import GameReducer, {Game, initializer} from './GameReducer';
+import WorkingHand from './WorkingHand';
 import {useReducer} from 'react';
 
 type GameLayoutOptions = {

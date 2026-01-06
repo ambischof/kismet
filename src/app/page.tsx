@@ -2,7 +2,7 @@
 import './page.css'
 import AboutDialog from './components/AboutDialog';
 import Switcher from './components/Switcher';
-import GameLayout from './GameLayout';
+import GameLayout from './components/GameLayout';
 import { useState } from 'react';
 
 
