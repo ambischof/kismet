@@ -1,5 +1,5 @@
 import { isNumber } from "lodash";
-// import { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 
 
 type ScoreCellParams = {
@@ -9,6 +9,7 @@ type ScoreCellParams = {
   isDone: boolean;
   isStarted: boolean;
   hasHand: boolean;
+  mode: 'play'|'scorecard';
   computeCellScore: (scoreOptionId: number) => number;
   changeValue: (slotId: number, score: number)=>void;
 }
@@ -22,14 +23,18 @@ function ScoreCell (params: ScoreCellParams) {
     isStarted, 
     hasHand,
     computeCellScore,
-    changeValue
+    changeValue,
+    mode
   } = params;
-  // function onChange (e: ChangeEvent<HTMLInputElement>) {
-  //   let value = Number(e.target.value);
-  //   if (Number.isNaN(value)) value = undefined;
-  //   changeValue(scoreOptionId, value)
-  // };
+  
+  // handler for input cell
+  function onChange (e: ChangeEvent<HTMLInputElement>) {
+    let value = Number(e.target.value);
+    if (Number.isNaN(value)) value = undefined;
+    changeValue(scoreOptionId, value)
+  }
 
+  // handler for chooser cell
   function onClickPossible() {
     if (!hasHand) return;
     changeValue(scoreOptionId, computeCellScore(scoreOptionId));
@@ -58,22 +63,28 @@ function ScoreCell (params: ScoreCellParams) {
 
   // When empty, the value in DOM should be '', not undefined.
   const renderedValue = hasScore? score : '';
+  const className = cellClasses.join(' ');
 
   // read-only if game is not active or if score is already filled
-  if (!isGameActive || isNumber(score)) {
+  if (!isGameActive || (isNumber(score) && mode === 'play')) {
+    // Read Only Cell
     return (
       <td 
         data-id={uniqueId} 
         key={uniqueId}
         data-game={gameId} 
         data-scoreop={scoreOptionId}
-        className={cellClasses.join(' ')}
+        className={className}
       >
-      {renderedValue}
-    </td>)
+        {renderedValue}
+      </td>
+    )
   }
 
-  else return (
+  else if (mode === 'play') {  
+    // Chooser Cell
+    // TODO: listen for ENTER keypress OR change to button
+    return (
     <td 
       data-game={gameId} 
       data-scoreop={scoreOptionId}
@@ -81,25 +92,27 @@ function ScoreCell (params: ScoreCellParams) {
       key={uniqueId}
       tabIndex={hasHand? 0 : undefined}
       role= {hasHand? 'button': undefined}
-      className={cellClasses.join(' ')}
+      className={className}
       onClick={hasHand? onClickPossible : undefined}
     >
     {possibleCellScore}
-  </td>)
-
-  // else return (
-  //   <td className="input-cell" data-id={uniqueId} key={uniqueId}>
-  //     <input 
-  //       data-game={params.gameId} 
-  //       data-scoreop={params.scoreOptionId}
-  //       type="text"
-  //       name={name}
-  //       title={name}
-  //       value={renderedValue}
-  //       onChange={onChange}
-  //     >
-  //     </input>
-  //   </td>)
+    </td> )
   }
 
-  export default ScoreCell;
+  else 
+    // Input Cell
+    return (
+    <td className="input-cell" data-id={uniqueId} key={uniqueId}>
+      <input 
+        data-game={gameId} 
+        data-scoreop={scoreOptionId}
+        type="text"
+        name={uniqueId}
+        value={renderedValue}
+        onChange={onChange}
+      />
+    </td>
+  );
+}
+
+export default ScoreCell;

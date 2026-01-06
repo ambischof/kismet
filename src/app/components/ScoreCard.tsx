@@ -9,6 +9,7 @@ import gameUtil from '../../lib/gameUtil';
 type ScoreCardOptions = {
   gameState: GameState;
   doUpdateScore: (game: Game, slotId: number, score: number)=>void;
+  mode: 'play'|'scorecard'
 };
 
 export default function ScoreCard(options:ScoreCardOptions) {
@@ -39,6 +40,7 @@ export default function ScoreCard(options:ScoreCardOptions) {
           hasHand = {Array.isArray(gameState.workingHand)}
           computeCellScore = {computeCellScore}
           changeValue = {onScoreChange}
+          mode={options.mode}
         />
       )
     })

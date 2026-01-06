@@ -158,3 +158,15 @@
   margin: .5rem;
 }
 
+/*************** Game Mode Switcher ********************/
+#game-mode-switcher {
+
+  margin: 4rem ;
+  text-align: center
+}
+#game-mode-switcher-controls {
+  margin: 1rem;
+  button + button {
+    margin-left: 1rem
+  }
+}

@@ -1,13 +1,13 @@
-'use client';
 import _ from 'lodash';
-import './page.css'
 import ScoreCard from './components/ScoreCard';
 import GameReducer, {Game, initializer} from './components/GameReducer';
 import WorkingHand from './components/WorkingHand';
 import {useReducer} from 'react';
-import AboutDialog from './components/AboutDialog';
 
-export default function Home() {
+type GameLayoutOptions = {
+  mode: 'play'|'scorecard';
+}
+export default function GameLayout(gameoptions:GameLayoutOptions) {
   const options = { GAME_COUNT: 3};
   const [gameState, dispatch] = useReducer(GameReducer, options, initializer);
 
@@ -30,12 +30,13 @@ export default function Home() {
 
   // TODO rethink the layout. Make mobile friendly!!
   return (
-    <main>
-      <AboutDialog />
+    <>
       <ScoreCard
         gameState={gameState}
         doUpdateScore={doUpdateScore}
+        mode={gameoptions.mode}
       />
+      {gameoptions.mode === 'play' && 
       <WorkingHand 
         key={gameState.optionsLeft}
         canRerollHand={gameState.canRerollHand}
@@ -45,7 +46,8 @@ export default function Home() {
         doReroll={doReroll}
         doReset={doReset}
       />
-    </main>
+      }
+    </>
   )
 }
 
