@@ -66,7 +66,7 @@ function ScoreCell (params: ScoreCellParams) {
   const className = cellClasses.join(' ');
 
   // read-only if game is not active or if score is already filled
-  if (!isGameActive || (isNumber(score) && mode === 'play')) {
+  if (!isGameActive || (mode === 'play' && (isNumber(score)|| !hasHand))) {
     // Read Only Cell
     return (
       <td 
@@ -83,19 +83,22 @@ function ScoreCell (params: ScoreCellParams) {
 
   else if (mode === 'play') {  
     // Chooser Cell
-    // TODO: listen for ENTER keypress OR change to button
     return (
     <td 
       data-game={gameId} 
       data-scoreop={scoreOptionId}
       data-id={uniqueId} 
       key={uniqueId}
-      tabIndex={hasHand? 0 : undefined}
-      role= {hasHand? 'button': undefined}
       className={className}
-      onClick={hasHand? onClickPossible : undefined}
-    >
-    {possibleCellScore}
+      >
+      <button
+        className="score-cell-button"
+        type="button"
+        onClick={onClickPossible}
+        >
+
+        {possibleCellScore}
+      </button>
     </td> )
   }
 
