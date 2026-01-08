@@ -7,7 +7,7 @@
     border-left-width: 3px;
   }
   border-top-width: 0px;
-  border-color: black;
+  border-color: rgb(var(--foreground-rgb));
   border-style: solid;
 }
 .scorecols > col{
@@ -45,22 +45,22 @@
     width: 100%;  
     border-collapse: collapse;
     td {
-      border: 1px solid black;
+      border: 1px solid rgb(var(--foreground-rgb));
 
       &.active-game-cell {
-        background-color: white;
+        background-color: rgb(var(--active-bg));
       }
 
       &.possible-score {
         /* make room for invisible button */
         padding: 0;
-        background-color: rgba(224, 255, 255,.5);
+        background-color: rgba(var(--highlighted-bg) /.5);
         &:hover{
-          outline: 2px solid black;
+          outline: 2px solid rgb(var(--foreground-rgb));
         }
       }
       &.good-score {
-        background-color: rgb(224, 255, 255);
+        background-color: rgb(var(--highlighted-bg));
         
         .score-cell-button {
           font-weight: bold;
@@ -68,7 +68,6 @@
       }
       
       .score-cell-button {
-        color: blue;
         /* make size of parent cell */
         padding-left: .5rem;
         padding-right: .5rem;
@@ -87,27 +86,16 @@
         width: 100%;
         border: 0px;
       }
-      /* Chrome, Safari, Edge, Opera */
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-
-      /* Firefox */
-      input[type=number] {
-        -moz-appearance: textfield;
-      }
     }
     td:first-child {
       width: 3rem;
     }
   }
   tbody {
-    border-top: 3px solid black;
+    border-top: 3px solid rgb(var(--foreground-rgb));
   }
   tfoot {
-    border-top: 2px solid black; 
+    border-top: 2px solid rgb(var(--foreground-rgb)); 
   }
 
 
@@ -134,15 +122,14 @@
   max-width: 50rem;
   padding: 1rem;
 
-  .working-hand-message {
+  #working-hand-message {
     font-size: 80%;
-    color: darkslategray;
   }
   .rolled-die {
     margin-right: .5rem;
 
     &.selected img {
-     outline: 2px solid cyan; 
+     outline: 2px solid rgb(var(--selected-color)); 
     }
     &.selectable {
       cursor: pointer;
