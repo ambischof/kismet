@@ -1,5 +1,5 @@
 import { isNumber } from "lodash";
-import { ChangeEvent } from "react";
+import { ChangeEvent, JSX } from "react";
 
 
 type ScoreCellParams = {
@@ -31,7 +31,7 @@ function ScoreCell (params: ScoreCellParams) {
   function onChange (e: ChangeEvent<HTMLInputElement>) {
     let value = Number(e.target.value);
     if (Number.isNaN(value)) value = undefined;
-    changeValue(scoreOptionId, value)
+    changeValue(scoreOptionId, value);
   }
 
   // handler for chooser cell
@@ -63,34 +63,18 @@ function ScoreCell (params: ScoreCellParams) {
 
   // When empty, the value in DOM should be '', not undefined.
   const renderedValue = hasScore? score : '';
-  const className = cellClasses.join(' ');
+  let className = cellClasses.join(' ');
+  let content: JSX.Element | number | '';
 
   // read-only if game is not active or if score is already filled
   if (!isGameActive || (mode === 'play' && (isNumber(score)|| !hasHand))) {
     // Read Only Cell
-    return (
-      <td 
-        data-id={uniqueId} 
-        key={uniqueId}
-        data-game={gameId} 
-        data-scoreop={scoreOptionId}
-        className={className}
-      >
-        {renderedValue}
-      </td>
-    )
+    content = renderedValue;
   }
 
   else if (mode === 'play') {  
     // Chooser Cell
-    return (
-    <td 
-      data-game={gameId} 
-      data-scoreop={scoreOptionId}
-      data-id={uniqueId} 
-      key={uniqueId}
-      className={className}
-      >
+    content = (
       <button
         className="score-cell-button"
         type="button"
@@ -99,21 +83,33 @@ function ScoreCell (params: ScoreCellParams) {
 
         {possibleCellScore}
       </button>
-    </td> )
+    )
   }
 
-  else 
+  else {
     // Input Cell
-    return (
-    <td className="input-cell" data-id={uniqueId} key={uniqueId}>
+    className = 'input-cell'
+    content = (
       <input 
-        data-game={gameId} 
-        data-scoreop={scoreOptionId}
+        autoComplete="off"
         type="text"
         name={uniqueId}
         value={renderedValue}
         onChange={onChange}
       />
+    )
+  }
+  
+  // General cell template
+  return (
+    <td 
+      data-id={uniqueId} 
+      key={uniqueId}
+      data-game={gameId} 
+      data-scoreop={scoreOptionId}
+      className={className}
+    >
+      {content}
     </td>
   );
 }
