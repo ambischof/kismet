@@ -1,5 +1,7 @@
-import {useState} from 'react';
+import {JSX, useState} from 'react';
+import { capitalize } from 'lodash';
 import dieSymbols from '../../lib/dieSymbols';
+import numberNames from '../../lib/numberNames';
 
 type Hand = [number,number,number,number,number]; 
 
@@ -53,24 +55,21 @@ export default function WorkingHand(options: WorkingHandOptions) {
     if (needReset) doReset();
   }
 
-  if (needReset) {
-    return (
-      <div id="working-hand-container">
-        <div id="working-hand-body">
-          <div id="working-hand-controls">
-            <button 
-              id="roll-hand"  
-              type="button" 
-              onClick={onResetClick}>
-              Start Over!
-            </button>
-          </div>
-        </div>
-        <div id="working-hand-message">
-          Do you want to start over?
-        </div>
-      </div>
-    )
+  let message: string,
+    controls: JSX.Element| JSX.Element[], 
+    body: JSX.Element | JSX.Element[], 
+    isDisabledControls:  boolean = false;
+  
+   if (needReset) {
+    controls = (
+      <button 
+        id="roll-hand"  
+        type="button" 
+        onClick={onResetClick}>
+        Start Over!
+      </button>
+    );
+    message = 'Do you want to start over?';
   }
 
   else if (workingHand) {
@@ -90,51 +89,53 @@ export default function WorkingHand(options: WorkingHandOptions) {
           role={canRerollHand? 'button' : undefined}
           onClick={()=>onDieClick(i)}
           key={i}>
-          <img src={dieSymbol.src} height={50} width={50} />
-          
+          <img src={dieSymbol.src} height={50} width={50} alt={capitalize(numberNames[val]) + ' die'}/>
         </div>
       )
     });
 
-    const message = canRerollHand? 'Select any dice to reroll or select a combination' : 'Select a combination';
-    const handControlClass= canRerollHand? '' :'disabled-hand-controls';
-  
-    return (
-      // when dice have been rolled
-      <div id="working-hand-container">
-        <div id="working-hand-body">
-          {/* dice */}
-          <div id="working-hand-dice">
-            {diceMKU}
-          </div>
-          {/* controls */}
-          <div id="working-hand-controls" className={handControlClass}>
-            <button 
-              id="roll-hand" 
-              type="button"
-              onClick={onRerollClick}>
-              Roll!
-            </button>
-          </div>
-        </div>
-        <div id="working-hand-message">{message}</div>
+    message = canRerollHand? 'Select any dice to reroll or select a combination' : 'Select a combination';
+    isDisabledControls = !canRerollHand;
+    body = (
+      <div id="working-hand-dice">
+       {diceMKU}
       </div>
-    )
+    );
+    controls = (
+      <button 
+        id="roll-hand" 
+        type="button"
+        onClick={onRerollClick}>
+        Roll!
+      </button>
+    );
   }
   
   // when dice are not rolled yet
-  else return (
+  else  {
+    controls = ( 
+      <button 
+        id="roll-hand"  
+        type="button" 
+        onClick={onClickRoll}>
+        Roll!
+      </button>
+    );
+  }
+
+  return (
     <div id="working-hand-container">
       <div id="working-hand-body">
-        <div id="working-hand-controls">
-          <button 
-            id="roll-hand"  
-            type="button" 
-            onClick={onClickRoll}>
-            Roll!
-          </button>
-        </div>
+        {!!body && body}
+        {!!controls && (
+        <div id="working-hand-controls" className={isDisabledControls? 'disabled-hand-controls' : undefined}>
+          {controls}
+        </div>)}
       </div>
+      {!!message && (
+      <div id="working-hand-message">
+       {message}
+      </div>)}
     </div>
   )
 }
