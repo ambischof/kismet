@@ -1,5 +1,6 @@
 import {JSX, useState} from 'react';
 import { capitalize } from 'lodash';
+import Image from 'next/image';
 import dieSymbols from '../../lib/dieSymbols';
 import numberNames from '../../lib/numberNames';
 
@@ -89,7 +90,12 @@ export default function WorkingHand(options: WorkingHandOptions) {
           role={canRerollHand? 'button' : undefined}
           onClick={()=>onDieClick(i)}
           key={i}>
-          <img src={dieSymbol.src} height={50} width={50} alt={capitalize(numberNames[val]) + ' die'}/>
+          <Image 
+            src={dieSymbol} 
+            height={50} 
+            width={50} 
+            loading="eager"
+            alt={capitalize(numberNames[val]) + ' die'}/>
         </div>
       )
     });
