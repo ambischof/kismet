@@ -1,5 +1,0 @@
-1:"$Sreact.fragment"
-2:I[97367,["./_next/static/chunks/4fd93823156e59e8.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"buildId":"WSMHG98E5yQu67cvdpUJE","rsc":["$","$1","c",{"children":[["$","main",null,{"children":["Add your players: Player 1 ",["$","input",null,{"type":"text","name":"player1"}],"Player 2 ",["$","input",null,{"type":"text","name":"player3"}],"Player 3 ",["$","input",null,{"type":"text","name":"player3"}],["$","button",null,{"type":"button","children":"Start"}]]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
-4:null
