@@ -54,7 +54,7 @@
       &.possible-score {
         /* make room for invisible button */
         padding: 0;
-        background-color: rgba(var(--highlighted-bg) /.5);
+        background-color: rgba(var(--highlighted-bg) ,.5);
         &:hover{
           outline: 2px solid rgb(var(--foreground-rgb));
         }
