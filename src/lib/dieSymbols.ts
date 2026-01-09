@@ -7,11 +7,11 @@ TODO: should add credits modal in app somewhere
 
 
 const dieSymbols = {
-  1: '/icons/one-die.svg',
-  2: '/icons/two-die.svg',
-  3: '/icons/three-die.svg',
-  4: '/icons/four-die.svg',
-  5: '/icons/five-die.svg',
-  6: '/icons/six-die.svg'
+  1: '/assets/icons/one-die.svg',
+  2: '/assets/icons/two-die.svg',
+  3: '/assets/icons/three-die.svg',
+  4: '/assets/icons/four-die.svg',
+  5: '/assets/icons/five-die.svg',
+  6: '/assets/icons/six-die.svg'
 }
 export default dieSymbols;
