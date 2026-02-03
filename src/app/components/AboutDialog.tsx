@@ -1,31 +1,33 @@
 import {useRef} from 'react';
+import Button from './Button';
 
 export default function AboutDialog() {
   let dialog  = useRef(null);
 
   function openDialog() {dialog.current.showModal()}
   function closeDialog() {dialog.current.close()}
+
+  // would love to use `command` and `commandfor` instead of JS
+  // but adoption is still low. Maybe should get a polyfill...
   return (
     <>
-    <button 
+    <Button 
       id="open-about-dialog-button" 
       onClick={openDialog}
       title="Open About Dialog"
-      >
-      ?
-    </button>
+      text="?" />
 
 
     <dialog id="about-dialog" ref={dialog} closedby="any">
       <div id="about-dialog-header">
-        <button 
+        <Button 
           id="about-dialog-close-button" 
           autoFocus 
           title="Close Dialog"
           onClick={closeDialog}
           >
           &times;
-        </button>
+        </Button>
       </div>
       <p>
         Welcome! <br/><br/>

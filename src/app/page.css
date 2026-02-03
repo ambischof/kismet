@@ -1,3 +1,7 @@
+.gbtn {
+  padding: .3rem;
+}
+
 .sidelabels {
   width: 40%;
   col:first-child {
@@ -148,6 +152,10 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  
+  /* get rid of padding that all other buttons have on top and bottom */
+  padding-top:0;
+  padding-bottom:0;
 }
 
 #about-dialog {

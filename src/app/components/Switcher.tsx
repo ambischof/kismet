@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 type SwitcherOptions = {
   setMode: (mode: 'scorecard' | 'play')=> void;
 }
@@ -10,20 +12,15 @@ export default function Switcher({setMode}: SwitcherOptions) {
  
       <div id="game-mode-switcher-controls">
 
-        <button 
-          type="button" 
+        <Button
           name="scorecard"
-          onClick={()=>setMode('scorecard')}>
-            Interactive Scorecard
-        </button>
+          onClick={()=>setMode('scorecard')}
+          text="Interactive Scorecard"/>
 
-        <button 
-          type="button" 
+        <Button
           name="play"
-          onClick={()=>setMode('play')}>
-            Play!
-        </button>
-
+          onClick={()=>setMode('play')}
+          text="Play!"/>
       </div>
     </div>
   )

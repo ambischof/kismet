@@ -1,6 +1,7 @@
 import {JSX, useState} from 'react';
 import { capitalize } from 'lodash';
 import Image from 'next/image';
+import Button from './Button';
 import dieSymbols from '../../lib/dieSymbols';
 import numberNames from '../../lib/numberNames';
 
@@ -63,12 +64,10 @@ export default function WorkingHand(options: WorkingHandOptions) {
   
    if (needReset) {
     controls = (
-      <button 
+      <Button 
         id="roll-hand"  
-        type="button" 
-        onClick={onResetClick}>
-        Start Over!
-      </button>
+        onClick={onResetClick}
+        text="Start Over!" />
     );
     message = 'Do you want to start over?';
   }
@@ -108,24 +107,20 @@ export default function WorkingHand(options: WorkingHandOptions) {
       </div>
     );
     controls = (
-      <button 
-        id="roll-hand" 
-        type="button"
-        onClick={onRerollClick}>
-        Roll!
-      </button>
+      <Button 
+        id="roll-hand"
+        onClick={onRerollClick}
+        text="Roll!" />
     );
   }
   
   // when dice are not rolled yet
   else  {
     controls = ( 
-      <button 
-        id="roll-hand"  
-        type="button" 
-        onClick={onClickRoll}>
-        Roll!
-      </button>
+      <Button 
+        id="roll-hand"
+        onClick={onClickRoll}
+        text="Roll!" />
     );
   }
 
