@@ -1,18 +1,8 @@
 import _ from 'lodash';
 import scoringOptions from '../../lib/scoreOptions';
 import gameUtils from '../../lib/gameUtil';
+import {Hand, Game} from '../../types/game'
 
-type Hand = [number,number,number,number,number]; 
-type ScoreSlot = {
-  score: number;
-}
-
-type Game = {
-  id: number;
-  isDone: boolean;
-  isStarted: boolean;
-  slots: ScoreSlot[];
-}
 type GameState = {
   games: Game[];
   GAME_COUNT: number;

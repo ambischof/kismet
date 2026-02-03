@@ -1,16 +1,8 @@
 import _ from 'lodash';
 import scoringOptions from './scoreOptions';
 import makeBasicBonus from './makeBasicBonus';
+import {Game} from '../types/game';
 
-type ScoreSlot = {
-  score: number;
-}
-type Game = {
-  id: number;
-  isDone: boolean;
-  isStarted: boolean;
-  slots: ScoreSlot[];
-}
 const bySection = _.groupBy(scoringOptions, 'section');
 const basicSectionItems = bySection[1];
 const kismetSectionItems = bySection[2];
