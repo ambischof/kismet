@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import ScoreCell from './ScoreCell';
 import scoringOptions, { ScoringOptions } from '../../lib/scoreOptions';
 import ordinals from '../../lib/ordinals';
-import {type GameState, Game} from './GameReducer';
+import {type GameState, Game} from '../components/GameReducer';
 import gameUtil from '../../lib/gameUtil';
 
 

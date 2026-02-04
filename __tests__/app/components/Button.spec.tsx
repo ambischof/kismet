@@ -1,6 +1,6 @@
 import {act} from 'react'
 import ReactDOMClient from 'react-dom/client';
-import Button from '../../../src/app/components/Button';
+import Button from '../../../src/app/vanilla/Button';
 
 describe('button', ()=> {
   let container: HTMLDivElement;

@@ -1,25 +1,17 @@
-'use client';
-import './page.css'
-import AboutDialog from './components/AboutDialog';
-import Switcher from './components/Switcher';
-import GameLayout from './components/GameLayout';
-import { useState } from 'react';
+import type { Metadata } from 'next';
+import { JSX } from 'react';
 
+export const metadata: Metadata = {
+  title: 'Kismet — Home'
+};
 
-export default function () {
-  let [mode, setMode] = useState(undefined);
-
-  function doSetMode (mode:string) {
-    setMode(mode);
-  }
+export default function HomePage(): JSX.Element {
   return (
-    <main>
-      <AboutDialog />
-      {mode? 
-        <GameLayout mode={mode}/>
-        :   
-        <Switcher setMode={doSetMode} />
-      }
+    <main >
+      <h1>Kismet</h1>
+      <p>this will be the shiney new page with cool styling. <br/>
+        find the old one at <a href="/vanilla">/vanilla</a>
+      </p>
     </main>
   );
 }
