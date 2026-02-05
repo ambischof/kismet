@@ -1,5 +1,6 @@
 'use client';
-import './page.css'
+import './globals.css';
+import './page.css';
 import AboutDialog from './AboutDialog';
 import Switcher from './Switcher';
 import GameLayout from './GameLayout';
