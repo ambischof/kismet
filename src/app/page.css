@@ -1,0 +1,46 @@
+/*****
+Still figuring out the best way to deal with css and MUI styling.
+
+********/
+
+:root {
+  /* info alert bg value yoinked. Just until I get aroud to a theme
+     or something. */
+  --info-bg: #e5f6fd;
+}
+
+#working-hand-body {
+  display: flex;
+  /* TODO: use theme spacing */
+  column-gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center; 
+}
+
+.wh-rolled-die {
+  /* remove default button styling */
+  &button {
+    padding: 0px;
+    border: 0;
+    background-color: unset;
+  }
+
+  img {
+    /* prevent phantom extra pixes at bottom */
+    display: block;
+  }
+  
+  &.selected {
+    /* outline color specified in JS, and the selected class 
+    toggles the width/style (all are needed) */
+    outline-width: 2px;
+    outline-style: solid;
+  }
+}
+
+ .wh-dice-container {
+  display: flex;
+  /* space between dice */
+  column-gap: 0.5rem
+}
