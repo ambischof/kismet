@@ -1,6 +1,6 @@
 import {JSX, useState} from 'react';
 import { capitalize } from 'lodash';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, ButtonBase } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import dieSymbols from '../../lib/dieSymbols';
@@ -98,15 +98,15 @@ export default function WorkingHand(options: WorkingHandOptions) {
       
       if (canRerollHand) {
         return (
-          <button
+          <ButtonBase
             className={"wh-rolled-die selectable " + extraClasses.join(' ')}
             onClick={()=>onDieClick(i)}
             name={'die-' + i}
             // only set color which lives in theme (JS), rest is done in css
-            style={{'outlineColor': theme.palette.secondary.main}}
+            sx={{'outlineColor': 'secondary.main'}}
             key={i}>
             {image}
-          </button>
+          </ButtonBase>
         );
       } 
       else return (
@@ -128,6 +128,7 @@ export default function WorkingHand(options: WorkingHandOptions) {
       <Button 
         variant='contained'
         id="roll-hand"
+        disabled={selectedState.every(s => !s)} // disable if no dice are selected
         onClick={onRerollClick}>
           Roll!
       </Button>
