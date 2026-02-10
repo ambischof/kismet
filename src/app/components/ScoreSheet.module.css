@@ -16,3 +16,22 @@
   padding: 0.1rem 0.5rem;
   border-radius: 0.6rem;
 }
+
+/* the left hand labels */
+.labelCell {
+  text-align: right
+}
+
+/* the hidden button providing click functionality
+   remove all default styling */
+.cellButton {
+  height:100%;
+  width: 100%;
+  background-color: transparent;
+  border-width: 0;
+  text-align: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  display: inherit;
+  padding: 0 0 0 0;
+}

@@ -55,9 +55,9 @@ export default function HomePage(): JSX.Element {
           doReset={doReset}
         />
   
+        <p>find the old one at <a href="/vanilla">/vanilla</a></p>
       </Paper>
 
-      <p>find the old one at <a href="/vanilla">/vanilla</a></p>
     </Container>
   );
 }

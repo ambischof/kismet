@@ -157,7 +157,7 @@ export default function WorkingHand(options: WorkingHandOptions) {
         )}
       </div>
       {!!message && (
-        <Box id="working-hand-message" sx={{ mt: 1, justifyContent: 'center' }}>
+        <Box id="working-hand-message" sx={{ mt: 1, textAlign: 'center' }}>
           <Typography variant="body2">{message}</Typography>
         </Box>
       )}
