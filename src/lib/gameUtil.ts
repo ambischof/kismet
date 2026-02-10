@@ -34,6 +34,9 @@ function getKismetTotalScore(game : Game) : number {
   return _.sum(_.compact(scores));
 }
 
+function getTotalScore(game : Game) : number {
+  return getBasicTotalScore(game) + getKismetTotalScore(game);
+}
 
 
 /**
@@ -56,6 +59,7 @@ const gameUtils =  {
   getBasicBaseScore,
   getBasicBonusScore,
   getBasicTotalScore,
-  getKismetTotalScore
+  getKismetTotalScore,
+  getTotalScore
 }
 export default gameUtils;
