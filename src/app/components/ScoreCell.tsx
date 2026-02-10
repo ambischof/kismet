@@ -10,13 +10,15 @@ type ScoreCellProps = {
   score?: number | null; // already saved score for this slot
   availableScore?: number | null; // score available from current working hand; undefined/null means not available
   onApplyScore: () => void;
+  ariaDescribedby?: string;
 };
 
 export default function ScoreCell({
   slotName,
   score,
   availableScore,
-  onApplyScore
+  onApplyScore,
+  ariaDescribedby
 }: ScoreCellProps) {
   const hasSaved =  isNumber(score);
   // means there's no existing AND a working hand exists
@@ -54,6 +56,7 @@ export default function ScoreCell({
 
   return (
     <Box className={styles.cell} 
+      aria-describedby={ariaDescribedby}
       sx={{
         bgcolor: bgColor,
         border: hasAvailable ? `1px solid ${theme.palette.secondary.main}` : 'none',

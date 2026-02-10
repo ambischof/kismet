@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import { Fragment, JSX } from 'react';
 import { Box } from '@mui/material';
 import { GameState } from './GameReducer';
 import styles from './ScoreSheet.module.css';
@@ -22,40 +22,29 @@ function ScoreSheet(scoreSheetOptions: ScoreSheetOptions) {
     doUpdateScore(slotId, computeScore(slotId));
   }
 
-  const labels = scoringOptions.map(so=> {
-    // todo: add like more info for score computation and stuff
-    return (
-      <Box 
-        component="div"
-        className={styles.labelCell + ' ' + styles.cell} 
-        sx={{backgroundColor:'background.default',  color: 'text.primary' }}
-        key={'label-'+ so.id} 
-        id={'score-' + so.id}>
-          {so.name}
-      </Box>
-    );
-  });
-  
-  const values = gameState.games[0].slots.map((slot, i) => {
-    return (
-      <ScoreCell
-        key={'value-'+ i} 
-        score={slot.score}
-        slotId={i}
-        availableScore={computeScore(i)} 
-        onApplyScore={() => {onApplyScore(i)}}
-        slotName={scoringOptions[i].name}
-        aria-describedby={'score-'+ i} />
-    );
-  });
-  
-  // arrange in the order needed for grid to work correctly
   const items: JSX.Element[] = [];
   for (let i = 0; i < scoringOptions.length; i++) {
-    items.push(labels[i]);
-    items.push(values[i]);
+    const so = scoringOptions[i];
+    const slot = gameState.games[0].slots[i];
+    items.push(
+      <Fragment key={i}>
+        <Box 
+          component="div"
+          className={styles.labelCell + ' ' + styles.cell} 
+          sx={{backgroundColor:'background.default',  color: 'text.primary' }}
+          id={'score-' + i}>
+            {so.name}
+        </Box>
+        <ScoreCell
+          score={slot.score}
+          slotId={i}
+          availableScore={computeScore(i)} 
+          onApplyScore={() => {onApplyScore(i)}}
+          slotName={scoringOptions[i].name}
+          ariaDescribedby={'score-'+ i} />
+      </Fragment>
+    )
   }
-
 
   return (
     <div id="score-sheet-container" className={styles.scoresheetcontainer}>
