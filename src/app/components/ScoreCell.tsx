@@ -1,6 +1,4 @@
 import { isNumber } from 'lodash'; 
-import { Box } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import styles from './ScoreSheet.module.css';
 
 
@@ -30,13 +28,13 @@ export default function ScoreCell({
     onApplyScore();
   };
   
-  const theme = useTheme();
-  
-  const hlColor = theme.palette.secondary.light;
-  // cell background color
-  const bgColor = !hasAvailable? 'background.default' : // non-interactive cell
-    (availableScore as number) > 0 ? theme.lighten(hlColor, .6) : //nonzero score
-    theme.lighten(hlColor, .8); //zero score
+  const extraClasses = [];
+  if (hasAvailable) {
+    extraClasses.push(styles.available);
+    if (availableScore > 0) {
+      extraClasses.push(styles.goodScore);
+    }
+  }
 
   // the score to display which may or may not be wrapped
   let value = (<>{hasSaved ? String(score) : hasAvailable ? String(availableScore) : '-'}</>);
@@ -55,14 +53,10 @@ export default function ScoreCell({
   }
 
   return (
-    <Box className={styles.cell} 
-      aria-describedby={ariaDescribedby}
-      sx={{
-        bgcolor: bgColor,
-        border: hasAvailable ? `1px solid ${theme.palette.secondary.main}` : 'none',
-        color: 'text.primary'
-        }}>
+    <div 
+      className={styles.cell + ' ' + extraClasses.join(' ')} 
+      aria-describedby={ariaDescribedby}>
       {value}
-    </Box> 
+    </div> 
   );
 }

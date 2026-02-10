@@ -30,10 +30,9 @@ function ScoreSheet(scoreSheetOptions: ScoreSheetOptions) {
       <Fragment key={i}>
         <Box 
           component="div"
-          className={styles.labelCell + ' ' + styles.cell} 
-          sx={{backgroundColor:'background.default',  color: 'text.primary' }}
+          className={styles.labelCell + ' ' + styles.cell}
           id={'score-' + i}>
-            {so.name}
+           {so.name}
         </Box>
         <ScoreCell
           score={slot.score}
@@ -47,8 +46,10 @@ function ScoreSheet(scoreSheetOptions: ScoreSheetOptions) {
   }
 
   return (
-    <div id="score-sheet-container" className={styles.scoresheetcontainer}>
-      {items}
+    <div id="score-sheet-container">
+      <div className={styles.scoresheetcontainer}>
+        {items}
+      </div>
     </div>
   );
 }

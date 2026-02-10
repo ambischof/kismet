@@ -2,11 +2,22 @@
 Still figuring out the best way to deal with css and MUI styling.
 
 ********/
-
-:root {
-  /* info alert bg value yoinked. Just until I get aroud to a theme
-     or something. */
-  --info-bg: #e5f6fd;
+body {
+  height: 100vh;
+}
+main {
+  height: 100%;
+  background-color: color-mix(in srgb, 
+    var(--mui-palette-info-main) 10%, 
+    var(--mui-palette-background-default) 90%);
+}
+#kismet-game-container {
+  padding-block: 1rem;
+  margin-inline: auto;
+  max-width: 40rem;
+  max-height: 65rem;
+  background-color: var(--mui-palette-info-light);
+  color: var(--mui-palette-info-contrastText);
 }
 
 #working-hand-body {

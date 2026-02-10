@@ -15,11 +15,30 @@
 .cell {
   padding: 0.1rem 0.5rem;
   border-radius: 0.6rem;
+  background-color: var(--mui-palette-background-default);
+  color: var(--mui-palette-text-primary);
 }
 
 /* the left hand labels */
 .labelCell {
   text-align: right
+}
+
+.available {
+  /* make the highlight a mix of bg-color and secondary */
+  background-color: color-mix(in srgb,  
+  var(--mui-palette-background-default) 80%,
+  var(--mui-palette-secondary-main) 20%);
+
+  /* give it a border */
+  border: 1px solid var(--mui-palette-secondary-main);
+}
+
+.goodScore {
+  /* make the highlight a stronger mix of bg-color and secondary */
+  background-color: color-mix(in srgb,  
+    var(--mui-palette-background-default) 60%,
+    var(--mui-palette-secondary-main) 40%);
 }
 
 /* the hidden button providing click functionality

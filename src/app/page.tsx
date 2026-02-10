@@ -5,6 +5,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { isNull } from 'lodash';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { CssBaseline, Container, Paper } from '@mui/material';
 import './page.css';
 import GameReducer, {initializer} from './components/GameReducer';
@@ -12,6 +13,9 @@ import ScoreSheet from './components/ScoreSheet';
 import WorkingHand from './components/WorkingHand';
 
 export default function HomePage(): JSX.Element {
+  const theme = createTheme({
+    cssVariables: true
+ });
 
   const options = { GAME_COUNT: 1};
   const [gameState, dispatch] = useReducer(GameReducer, options, initializer);
@@ -32,14 +36,14 @@ export default function HomePage(): JSX.Element {
   }
 
   return (
-    <Container component="main"  sx={{backgroundColor:'var(--info-bg)'}}>
+    <ThemeProvider theme={theme}>
+    <Container component="main">
       
       <CssBaseline  />
 
       <Paper 
         elevation={5} 
-        id="kismet-game-container" 
-        sx={{maxWidth:'600px', maxHeight:'1000px', backgroundColor:'info.light', color: 'info.contrastText'}}>
+        id="kismet-game-container">
 
         <ScoreSheet
           gameState={gameState} 
@@ -59,5 +63,6 @@ export default function HomePage(): JSX.Element {
       </Paper>
 
     </Container>
+    </ThemeProvider>
   );
 }
