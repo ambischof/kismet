@@ -2,6 +2,13 @@
 Still figuring out the best way to deal with css and MUI styling.
 
 ********/
+/* NOTE: the current app is about 52 rem tall, heights should be
+   adjusted if this hanges */
+:root {
+  --app-height: 52rem;
+  --max-app-container-height: 65rem;
+}
+   
 body {
   height: 100vh;
 }
@@ -29,12 +36,24 @@ main {
 
   overflow: auto;
 }
-
-@media (min-height: 65rem) {
+@media (min-height: var(--max-app-container-height)) {
   #kismet-game-container {
-    max-height: 65rem;
+    max-height: var(--max-app-container-height);
   }
 } 
+
+/* on short viewports, prevent hopping 
+    between scrolling and no scrolling */
+@media (max-height: var(--app-height)) {
+  #kismet-game-container {
+    height: 100%;
+  }
+}
+
+/* leave space for dice so container doesn't grow and strink */
+#working-hand-container {
+  height: 8.5rem;
+}
 
 #working-hand-body {
   display: flex;
@@ -54,7 +73,7 @@ main {
   }
 
   img {
-    /* prevent phantom extra pixes at bottom */
+    /* prevent phantom extra pixels at bottom */
     display: block;
   }
   

@@ -58,8 +58,8 @@ export default function HomePage(): JSX.Element {
           doReroll={doReroll}
           doReset={doReset}
         />
-  
-        <p>find the old one at <a href="/vanilla">/vanilla</a></p>
+{/*   
+        <p>find the old one at <a href="/vanilla">/vanilla</a></p> */}
       </Paper>
 
     </Container>
