@@ -10,15 +10,31 @@ main {
   background-color: color-mix(in srgb, 
     var(--mui-palette-info-main) 10%, 
     var(--mui-palette-background-default) 90%);
+  padding-block: 1rem;
+
+  /* center the content */
+  display: flex;
+  align-items: center;
 }
 #kismet-game-container {
-  padding-block: 1rem;
+  /* don't let it collapse with flex */
+  flex-grow: 1;
+
+  padding: 1rem;
   margin-inline: auto;
   max-width: 40rem;
-  max-height: 65rem;
+  max-height: 100%;
   background-color: var(--mui-palette-info-light);
   color: var(--mui-palette-info-contrastText);
+
+  overflow: auto;
 }
+
+@media (min-height: 65rem) {
+  #kismet-game-container {
+    max-height: 65rem;
+  }
+} 
 
 #working-hand-body {
   display: flex;

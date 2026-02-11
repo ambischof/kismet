@@ -148,7 +148,7 @@ export default function WorkingHand(options: WorkingHandOptions) {
   }
 
   return (
-    <Box id="working-hand-container" sx={{ p: 2}}>
+    <Box id="working-hand-container" sx={{ p: 1}}>
       <div id="working-hand-body">
         {!!body && body}
         {!!controls && (
