@@ -14,8 +14,20 @@ import WorkingHand from './components/WorkingHand';
 
 export default function HomePage(): JSX.Element {
   const theme = createTheme({
-    cssVariables: true
- });
+    // allow use of MUI colors in css 
+    cssVariables: true,
+    colorSchemes: {
+      light: true,
+      dark: { // enables dark mode
+        palette: {
+          background: {
+            // shifts bg color from black to very dark blue
+            default: '#00052f' 
+          }
+        }
+      } 
+    }
+  });
 
   const options = { GAME_COUNT: 1};
   const [gameState, dispatch] = useReducer(GameReducer, options, initializer);
@@ -58,8 +70,6 @@ export default function HomePage(): JSX.Element {
           doReroll={doReroll}
           doReset={doReset}
         />
-{/*   
-        <p>find the old one at <a href="/vanilla">/vanilla</a></p> */}
       </Paper>
 
     </Container>

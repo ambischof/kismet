@@ -64,6 +64,21 @@
     var(--mui-palette-secondary-main) 25%);
 }
 
+@media (prefers-color-scheme: dark) {
+  /* do the same as before, but must be stronger 
+      to get the same effect on black */
+  .available {
+    background-color: color-mix(in srgb,  
+      var(--mui-palette-background-default) 80%,
+      var(--mui-palette-secondary-main) 20%);
+  }
+  .goodScore {
+    background-color: color-mix(in srgb,  
+      var(--mui-palette-background-default) 60%,
+      var(--mui-palette-secondary-main) 40%);
+  }
+}
+
 /* the hidden button providing click functionality
    remove all default styling */
 .cellButton {

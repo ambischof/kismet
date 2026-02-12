@@ -31,11 +31,58 @@ main {
   margin-inline: auto;
   max-width: 40rem;
   max-height: 100%;
-  background-color: var(--mui-palette-info-light);
+
+  /* this is needed because the gradient bottom is dark */
   color: var(--mui-palette-info-contrastText);
 
   overflow: auto;
+  background:
+  radial-gradient(
+    ellipse at 50% 35%,
+    rgba(255 255 255 / 40%) 0%,
+    rgba(255 255 255 / 25%) 40%,
+    transparent 65%
+  ),
+
+  linear-gradient(
+    to bottom,
+    hsl(210, 85%, 82%) 0%,      /* bright blue atmosphere */
+    hsl(208, 75%, 86%) 25%,     /* lighter #1976d2 */
+    hsl(228, 70%, 68%) 55%,     /* soft periwinkle */
+    hsl(255, 65%, 70%) 65%,     /* lifted purple */
+    hsl(275, 70%, 68%) 70%,     /* just above horizon */
+    hsl(234, 42%, 62%) 70%,     /* hard horizon */
+    hsl(280, 55%, 55%) 100%     /* ground / below horizon */
+  );
+  
 }
+@media (prefers-color-scheme: light) {
+  #kismet-game-container {
+    background-color: var(--mui-palette-info-light);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  #kismet-game-container {
+    color: var(--mui-palette-text-primary);
+    background:     
+      radial-gradient(
+        ellipse at 50% 35%,
+        transparent 60%,
+        rgb(0 0 0 /20%) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        hsl(222, 65%, 35%) 0%,
+        rgb(55, 135, 210) 25%,
+        hsl(232, 58%, 46%) 45%,
+        hsl(256, 51%, 39%) 60%,
+        hsl(272, 51%, 43%) 70%,     /* just above horizon */
+        hsl(269, 54%, 32%) 70%,     /* hard horizon at 70% */
+        hsl(268, 54%, 24%) 100%     /* ground / below horizon */
+      );
+  }
+}
+
 @media (min-height: var(--max-app-container-height)) {
   #kismet-game-container {
     max-height: var(--max-app-container-height);
@@ -53,6 +100,13 @@ main {
 /* leave space for dice so container doesn't grow and strink */
 #working-hand-container {
   height: 8.5rem;
+}
+/* at this width, roll button is on same line as dice */
+@media (min-width: 30rem) {
+  #working-hand-container {
+    height: 6rem;
+  }
+
 }
 
 #working-hand-body {
