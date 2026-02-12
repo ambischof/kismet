@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import { isNumber } from 'lodash'; 
 import styles from './ScoreSheet.module.css';
 
@@ -8,15 +9,14 @@ type ScoreCellProps = {
   score?: number | null; // already saved score for this slot
   availableScore?: number | null; // score available from current working hand; undefined/null means not available
   onApplyScore: () => void;
-  ariaDescribedby?: string;
 };
 
 export default function ScoreCell({
+  slotId,
   slotName,
   score,
   availableScore,
   onApplyScore,
-  ariaDescribedby
 }: ScoreCellProps) {
   const hasSaved =  isNumber(score);
   // means there's no existing AND a working hand exists
@@ -37,26 +37,31 @@ export default function ScoreCell({
   }
 
   // the score to display which may or may not be wrapped
-  let value = (<>{hasSaved ? String(score) : hasAvailable ? String(availableScore) : '-'}</>);
+  const valueText = hasSaved ? String(score) : hasAvailable ? String(availableScore) : '-';
+  
 
+  const value = !hasAvailable? <>{valueText}</> : 
   // Wrap in button to allow user to click if needed
-  if (hasAvailable) {
-    value = (
+    (
       <button
         name={'apply-score-' + slotName}
-        title={`(${value}) Apply score for ${slotName}`}
+        title={`(${valueText}) Apply score for ${slotName}`}
         onClick={handleClick}
         className={styles.cellButton}>
-        {value}
+        {valueText}
       </button>
     );
-  }
 
-  return (
-    <div 
-      className={styles.cell + ' ' + extraClasses.join(' ')} 
-      aria-describedby={ariaDescribedby}>
-      {value}
-    </div> 
+    return (
+    <Box 
+      component="div"
+      className={styles.labelCell + ' ' + styles.cell}
+      id={'score-' + slotId}>
+        <div>{slotName}</div>
+      <div 
+        className={styles.cellAppend + ' ' + extraClasses.join(' ')}>
+        {value}
+      </div> 
+    </Box>
   );
 }

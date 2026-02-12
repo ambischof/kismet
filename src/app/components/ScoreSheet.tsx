@@ -1,5 +1,5 @@
-import { Fragment, JSX } from 'react';
-import { Box, Typography } from '@mui/material';
+import { JSX } from 'react';
+import { Typography } from '@mui/material';
 import { GameState } from './GameReducer';
 import styles from './ScoreSheet.module.css';
 import scoringOptions from '../../lib/scoreOptions';
@@ -23,34 +23,29 @@ function ScoreSheet(scoreSheetOptions: ScoreSheetOptions) {
     doUpdateScore(slotId, computeScore(slotId));
   }
 
+  /* 
+    NOTE: I did not end up using MUI List for this because the 
+    styling/abstractions did not lend themselves to this use case.
+  */
   const items: JSX.Element[] = [];
   for (let i = 0; i < scoringOptions.length; i++) {
-    const so = scoringOptions[i];
     const slot = gameState.games[0].slots[i];
     items.push(
-      <Fragment key={i}>
-        <Box 
-          component="div"
-          className={styles.labelCell + ' ' + styles.cell}
-          id={'score-' + i}>
-           {so.name}
-        </Box>
-        <ScoreCell
-          score={slot.score}
-          slotId={i}
-          availableScore={computeScore(i)} 
-          onApplyScore={() => {onApplyScore(i)}}
-          slotName={scoringOptions[i].name}
-          ariaDescribedby={'score-'+ i} />
-      </Fragment>
-    )
+      <ScoreCell
+        key={i}
+        score={slot.score}
+        slotId={i}
+        availableScore={computeScore(i)} 
+        onApplyScore={() => {onApplyScore(i)}}
+        slotName={scoringOptions[i].name}/>
+    );
   }
 
   return (
     <div id="score-sheet-container">
       
       <div id="score-sheet-totals" className={styles.totalsContainer}>
-        <Typography variant="h6" component="div" className={styles.cell}>
+        <Typography variant="h6" component="div" className={styles.cell} sx={{px: 1}}>
           Total Score: {gameUtils.getTotalScore(gameState.games[0])}
         </Typography>
       </div>

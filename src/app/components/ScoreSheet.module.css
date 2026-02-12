@@ -1,7 +1,7 @@
 .scoresheetcontainer {
-  display:grid;
-  grid-template-columns: 13rem 3rem;
-  gap: 0.2rem 0.5rem;
+  display:flex;
+  flex-direction: column;;
+  gap: 0.2rem;
 
   /* make it only as big as content */
   width: fit-content;
@@ -18,32 +18,50 @@
 }
 
 .cell {
-  padding: 0.1rem 0.5rem;
   border-radius: 0.6rem;
   background-color: var(--mui-palette-background-default);
   color: var(--mui-palette-text-primary);
+  display: flex;
+  justify-content: end;
+
+  /* styles for the label */
+  > :first-child {
+    flex: 1;
+    text-align: right;
+    padding-inline: 1rem;
+  }
 }
 
-/* the left hand labels */
-.labelCell {
-  text-align: right
+/* this is the score button at the end of the row */
+.cellAppend {
+  width: 3rem;
+  text-align: center;
+  /* we want the border to blend in wit the parent on the outer side
+     for the purpose of the border */
+  border-top-right-radius: inherit;
+  border-bottom-right-radius: inherit;
+  
+  border-left: 1px solid var(--mui-palette-divider);
 }
 
 .available {
   /* make the highlight a mix of bg-color and secondary */
   background-color: color-mix(in srgb,  
-  var(--mui-palette-background-default) 80%,
-  var(--mui-palette-secondary-main) 20%);
+    var(--mui-palette-background-default) 90%,
+    var(--mui-palette-secondary-main) 10%);
 
   /* give it a border */
-  border: 1px solid var(--mui-palette-secondary-main);
+  border: 1px solid;
+
+  /* make the border color transparent */
+  border-color: color-mix(in srgb, var(--mui-palette-secondary-main) 50%, transparent 50%);
 }
 
 .goodScore {
   /* make the highlight a stronger mix of bg-color and secondary */
   background-color: color-mix(in srgb,  
-    var(--mui-palette-background-default) 60%,
-    var(--mui-palette-secondary-main) 40%);
+    var(--mui-palette-background-default) 75%,
+    var(--mui-palette-secondary-main) 25%);
 }
 
 /* the hidden button providing click functionality
