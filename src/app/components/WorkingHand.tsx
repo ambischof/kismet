@@ -1,8 +1,9 @@
-import {JSX, useState} from 'react';
+import { JSX, useState } from 'react';
 import { capitalize } from 'lodash';
 import { Box, Typography, Button, ButtonBase } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
+import styles from './WorkingHand.module.css';
 import dieSymbols from '../../lib/dieSymbols';
 import numberNames from '../../lib/numberNames';
 
@@ -63,8 +64,7 @@ export default function WorkingHand(options: WorkingHandOptions) {
 
   let message: string,
     controls: JSX.Element| JSX.Element[], 
-    body: JSX.Element | JSX.Element[], 
-    isDisabledControls:  boolean = false;
+    body: JSX.Element | JSX.Element[];
   
    if (needReset) {
     controls = (
@@ -85,10 +85,10 @@ export default function WorkingHand(options: WorkingHandOptions) {
       const dieSymbol = dieSymbols[val];
       const extraClasses = [];
       if (canRerollHand && selected) {
-        extraClasses.push('selected');
+        extraClasses.push(styles.selected);
       }
 
-      let image = (
+      const image = (
         <Image 
           src={dieSymbol} 
           height={50} width={50} 
@@ -99,9 +99,9 @@ export default function WorkingHand(options: WorkingHandOptions) {
       if (canRerollHand) {
         return (
           <ButtonBase
-            className={"wh-rolled-die selectable " + extraClasses.join(' ')}
+            className={styles.whRolledDie + ' ' + extraClasses.join(' ')}
             onClick={()=>onDieClick(i)}
-            name={'die-' + i}
+            name={val + ' die'}
             key={i}>
             {image}
           </ButtonBase>
@@ -109,16 +109,17 @@ export default function WorkingHand(options: WorkingHandOptions) {
       } 
       else return (
         // with no interaction, use div instead of button
-        <div className={"rolled-die"} key={i}>
+        <div className={styles.whRolledDie} key={i}>
           {image}
         </div>
       )
     });
 
-    message = canRerollHand? 'Select any dice to reroll or select a combination' : 'Select a combination';
-    isDisabledControls = !canRerollHand;
+    message = canRerollHand? 
+      'Select any dice to reroll or select a combination' : 
+      'Select a combination';
     body = (
-      <div className="wh-dice-container">
+      <div className={styles.whDiceContainer}>
        {diceMKU}
       </div>
     );
@@ -146,17 +147,21 @@ export default function WorkingHand(options: WorkingHandOptions) {
   }
 
   return (
-    <Box id="working-hand-container" sx={{ p: 1}}>
-      <div id="working-hand-body">
+    <Box id="working-hand-container" 
+      className={styles.workingHandContainer} 
+      sx={{ p: 1}}>
+      <div id="working-hand-body" className={styles.workingHandBody}>
         {!!body && body}
         {!!controls && (
-          <div id="working-hand-controls" className={isDisabledControls? 'disabled-hand-controls' : undefined}>
+          <div id="working-hand-controls">
             {controls}
           </div>
         )}
       </div>
       {!!message && (
-        <Box id="working-hand-message" sx={{ mt: 1, textAlign: 'center' }}>
+        <Box 
+          id="working-hand-message" 
+          sx={{ mt: 1, textAlign: 'center' }}>
           <Typography variant="body2">{message}</Typography>
         </Box>
       )}
