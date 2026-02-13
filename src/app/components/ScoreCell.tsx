@@ -61,7 +61,7 @@ export default function ScoreCell({
     return (
     <Box 
       component="div"
-      className={styles.labelCell + ' ' + styles.cell}
+      className={styles.cell}
       id={'score-' + slotId}>
         <div>{slotName}</div>
       <div 
