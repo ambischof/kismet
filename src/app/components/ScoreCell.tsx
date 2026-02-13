@@ -35,6 +35,12 @@ export default function ScoreCell({
       extraClasses.push(styles.goodScore);
     }
   }
+ 
+  // if already has a score and there's one  to 
+  // select, mute self to help user focus on others
+  if (hasSaved && isNumber(availableScore)) {
+    extraClasses.push(styles.muted)
+  } 
 
   // the score to display which may or may not be wrapped
   const valueText = hasSaved ? String(score) : hasAvailable ? String(availableScore) : '-';
@@ -48,7 +54,7 @@ export default function ScoreCell({
         title={`(${valueText}) Apply score for ${slotName}`}
         onClick={handleClick}
         className={styles.cellButton}>
-        {valueText}
+          <strong>{valueText}</strong>
       </button>
     );
 

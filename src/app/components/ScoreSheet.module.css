@@ -44,6 +44,12 @@
   border-left: 1px solid var(--mui-palette-divider);
 }
 
+/* un-accentuate scores which have already been selected */
+.muted {
+  color: var(--mui-palette-text-secondary);
+  font-weight: lighter;
+}
+
 .available {
   /* make the highlight a mix of bg-color and secondary */
   background-color: color-mix(in srgb,  
