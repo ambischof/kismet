@@ -1,4 +1,4 @@
-import { random, defaults, times, identity, cloneDeep } from 'lodash';
+import _  from 'lodash';
 import scoringOptions from '../../lib/scoreOptions';
 import gameUtils from '../../lib/gameUtil';
 import {Hand, Game} from '../../types/game'
@@ -109,7 +109,7 @@ function finishGame(gameState: GameState) : GameState {
 function initializer (options: Partial<GameState>) {
   if (!options) {options = {}}
   
-  defaults(options, {
+  _.defaults(options, {
     games: [], 
     workingHand: null, 
     GAME_COUNT: 6,
@@ -119,7 +119,7 @@ function initializer (options: Partial<GameState>) {
   });
 
   const gameState : GameState = options as GameState; 
-  const gameIds = times(gameState.GAME_COUNT, identity); // makes [0,1,2,3,4,5]
+  const gameIds = _.times(gameState.GAME_COUNT, _.identity); // makes [0,1,2,3,4,5]
 
   const games = gameIds.map(makeGame);
   
@@ -159,11 +159,11 @@ function gameReducer(gameState: GameState, action: GameAction) : GameState {
       //I could do this DRYer with lodash _.times or _.fill but 
       // I'm not sure it's worth using casting when TS throws a fit
       const newHand : Hand =  [
-        random(1,6), 
-        random(1,6), 
-        random(1,6), 
-        random(1,6), 
-        random(1,6)
+        _.random(1,6), 
+        _.random(1,6), 
+        _.random(1,6), 
+        _.random(1,6), 
+        _.random(1,6)
       ]
 
       return {
@@ -177,7 +177,7 @@ function gameReducer(gameState: GameState, action: GameAction) : GameState {
     case 'reroll' : {
       let newHand = gameState.workingHand
       for (let i of action.rerollIndicies) {
-        newHand[i] = random(1,6);
+        newHand[i] = _.random(1,6);
       }
       
       return {
@@ -195,7 +195,7 @@ function gameReducer(gameState: GameState, action: GameAction) : GameState {
     }
 
     case 'updateScore': {
-      const game = cloneDeep(action.game);
+      const game = _.cloneDeep(action.game);
       game.slots[action.slotId].score = action.score;
 
       const newGames = updateGameInArray(gameState.games, game);
