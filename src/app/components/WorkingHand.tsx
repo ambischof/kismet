@@ -102,8 +102,6 @@ export default function WorkingHand(options: WorkingHandOptions) {
             className={"wh-rolled-die selectable " + extraClasses.join(' ')}
             onClick={()=>onDieClick(i)}
             name={'die-' + i}
-            // only set color which lives in theme (JS), rest is done in css
-            sx={{'outlineColor': 'secondary.main'}}
             key={i}>
             {image}
           </ButtonBase>

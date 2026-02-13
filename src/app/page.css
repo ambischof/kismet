@@ -119,23 +119,32 @@ main {
 }
 
 .wh-rolled-die {
-  /* remove default button styling */
   &button {
+    /* remove default button styling */
     padding: 0px;
     border: 0;
     background-color: unset;
+
+    /* so bg-color looks like an outline 
+      always have it so that outlines are consistent */
+    border-radius: 4px;
+    
+    &.selected {
+      /* use bg color instead of outline so that focus-visible can use it
+         border requires set size */
+         
+      background-color: var(--mui-palette-secondary-main);
+    }
+
+    &:focus-visible {
+      /* important needed because of emotion stylesheets take priority :( */
+      outline: 3px solid var(--mui-palette-common-white) !important;
+    }
   }
 
   img {
     /* prevent phantom extra pixels at bottom */
     display: block;
-  }
-  
-  &.selected {
-    /* outline color specified in JS, and the selected class 
-    toggles the width/style (all are needed) */
-    outline-width: 2px;
-    outline-style: solid;
   }
 }
 
