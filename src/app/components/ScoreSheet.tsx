@@ -1,4 +1,5 @@
 import { JSX } from 'react';
+import Stack from '@mui/material/Stack'; 
 import { GameState } from './GameReducer';
 import styles from './ScoreSheet.module.css';
 import scoringOptions from '../../lib/scoreOptions';
@@ -21,14 +22,8 @@ function ScoreSheet(scoreSheetOptions: ScoreSheetOptions) {
     doUpdateScore(slotId, computeScore(slotId));
   }
 
-  /* 
-    NOTE: I did not end up using MUI List for this because the 
-    styling/abstractions did not lend themselves to this use case.
-    // todo try stack
-  */
   const items: JSX.Element[] = [];
-  for (let i = 0; i < scoringOptions.length; i++) {
-    const slot = gameState.games[0].slots[i];
+    for (const [i, slot] of gameState.games[0].slots.entries()) {
     items.push(
       <ScoreCell
         key={i}
@@ -41,11 +36,14 @@ function ScoreSheet(scoreSheetOptions: ScoreSheetOptions) {
   }
 
   return (
-    <div id="score-sheet-container">
-      <div className={styles.scoresheetcontainer}>
-        {items}
-      </div>
-    </div>
+    <Stack 
+      id="score-sheet-container"
+      className={styles.scoresheetcontainer} 
+      spacing={.4} 
+      useFlexGap={true}>
+
+      {items}
+    </Stack>
   );
 }
 

@@ -26,7 +26,9 @@ main {
 
 #kismet-toolbar {
   margin: -1rem -1rem 0 -1rem;
+  /* a width of 100% is 2rem less due to margin */
   width: calc(100% + 2rem);
+  color: var(--mui-palette-text-primary);
 }
 
 #kismet-game-container {
