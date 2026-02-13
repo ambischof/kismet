@@ -15,6 +15,9 @@ const customJestConfig = {
 
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1"
+  },
+  globals: {
+    IS_REACT_ACT_ENVIRONMENT: true
   }
 };
 
