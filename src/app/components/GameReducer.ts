@@ -10,6 +10,7 @@ type GameState = {
   canRerollHand: boolean;
   activeGame: number | null;
   optionsLeft: number; //to help with resetting workingHand when option is selected.
+  undoState: GameState | null;
 }
 type RollAction = {
   type: 'roll';
@@ -33,6 +34,9 @@ type ScoreUpdateAction = {
 type ResetAction = {
   type: 'reset'
 }
+type ApplyUndoAction = {
+  type: 'applyUndo';
+}
 // interface UpdateGameAction {
 //   type: 'update',
 //   game: Game
@@ -47,7 +51,8 @@ type GameAction =
       | RollAction
       | UpdateHandAction 
       | RerollAction
-      | ResetAction;
+      | ResetAction 
+      | ApplyUndoAction;
       // UpdateGameAction | 
       // UpdateAllGamesAction;
 
@@ -79,7 +84,8 @@ function startNextGame(gameState: GameState) {
     ...gameState,
     games: updateGameInArray(gameState.games, clonedNextGame),
     activeGame: clonedNextGame.id,
-    optionsLeft: scoringOptions.length
+    optionsLeft: scoringOptions.length,
+    undoState: null
   };
 }
 
@@ -115,7 +121,8 @@ function initializer (options: Partial<GameState>) {
     GAME_COUNT: 6,
     activeGame: 0,
     optionsLeft: scoringOptions.length,
-    canRerollHand: false
+    canRerollHand: false,
+    undoState: null
   });
 
   const gameState : GameState = options as GameState; 
@@ -156,6 +163,9 @@ function gameReducer(gameState: GameState, action: GameAction) : GameState {
     // }
     
     case 'roll' : {
+      // clear undo at roll
+      if (gameState.undoState) gameState.undoState = null;
+ 
       //I could do this DRYer with lodash _.times or _.fill but 
       // I'm not sure it's worth using casting when TS throws a fit
       const newHand : Hand =  [
@@ -212,11 +222,21 @@ function gameReducer(gameState: GameState, action: GameAction) : GameState {
       newState.canRerollHand = false;
 
       newState.optionsLeft = gameState.optionsLeft - 1;
+
+      // sanity check, should not happen in UI flow
+      if (gameState.undoState) gameState.undoState = null;
+      newState.undoState = gameState; // save current state for undoing
+      
       return newState;
     }
 
     case 'reset': {
       return initializer({GAME_COUNT: gameState.GAME_COUNT});
+    }
+
+    case 'applyUndo': {
+      if (!gameState.undoState) return gameState;
+      return gameState.undoState;
     }
   }
 }

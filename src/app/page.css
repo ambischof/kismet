@@ -23,6 +23,12 @@ main {
   display: flex;
   align-items: center;
 }
+
+#kismet-toolbar {
+  margin: -1rem -1rem 0 -1rem;
+  width: calc(100% + 2rem);
+}
+
 #kismet-game-container {
   /* don't let it collapse with flex */
   flex-grow: 1;

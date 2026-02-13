@@ -106,4 +106,51 @@ describe('gameReducer', function() {
     
     expect(gameState.canRerollHand).toBe(false);
   });
+
+  it('should save undo state after updateScore', ()=> {
+    const game = gameState.games[0];
+    const newState = GameReducer(gameState, {
+      type: 'updateScore',
+      game,
+      slotId: 0,
+      score: 3
+    });
+    expect(newState.undoState).not.toBeNull();
+    expect(newState.undoState).toEqual(gameState);
+  });
+
+  it('should apply undo correctly', ()=> {
+    let game = gameState.games[0];
+    let updated = GameReducer(gameState, {
+      type: 'updateScore',
+      game,
+      slotId: 0,
+      score: 3
+    });
+    expect(updated.games[0].slots[0].score).toBe(3);
+    
+    const undone = GameReducer(updated, { type: 'applyUndo' });
+    expect(undone.games[0].slots[0].score).toBeUndefined();
+    expect(undone).toEqual(gameState);
+  });
+
+  it('should clear undo state on roll', ()=> {
+    let game = gameState.games[0];
+    let updated = GameReducer(gameState, {
+      type: 'updateScore',
+      game,
+      slotId: 0,
+      score: 3
+    });
+    expect(updated.undoState).not.toBeNull();
+    
+    const rolled = GameReducer(updated, { type: 'roll' });
+    expect(rolled.undoState).toBeNull();
+  });
+
+  it('should return same state if applyUndo called with no undoState', ()=> {
+    expect(gameState.undoState).toBeNull();
+    const result = GameReducer(gameState, { type: 'applyUndo' });
+    expect(result).toEqual(gameState);
+  });
 });
