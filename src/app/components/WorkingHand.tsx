@@ -1,13 +1,11 @@
 import { JSX, useState } from 'react';
 import { capitalize } from 'lodash';
 import { Box, Typography, Button, ButtonBase } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import type { Hand } from '../../types/game'
 import Image from 'next/image';
 import styles from './WorkingHand.module.css';
 import dieSymbols from '../../lib/dieSymbols';
 import numberNames from '../../lib/numberNames';
-
-type Hand = [number,number,number,number,number]; 
 
 type WorkingHandOptions = {
   workingHand: Hand | null;
@@ -23,7 +21,6 @@ export default function WorkingHand(options: WorkingHandOptions) {
     workingHand, canRerollHand, needReset, 
     doRoll, doReroll, doReset
   } = options;
-  const theme= useTheme();
   
   // which dice are selected
   const [selectedState, setSelctedState] = 

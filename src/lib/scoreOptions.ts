@@ -1,12 +1,13 @@
 import getNOfAKind from "./getNOfAKind";
 import colorIndex from "./colorIndex";
+import type { Hand } from '../types/game';
 
 interface ScoringOptions {
   id: number;
   name: string;
   scoring: string;
   section: number;
-  computeScore: (numbers: [number,number,number,number,number]) => number;
+  computeScore: (numbers: Hand) => number;
 }
 /**
  * @type {ScoringOptions[]}

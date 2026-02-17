@@ -7,7 +7,7 @@ import GameLayout from './GameLayout';
 import { useState } from 'react';
 
 
-export default function () {
+function HomePage() {
   let [mode, setMode] = useState(undefined);
 
   function doSetMode (mode:string) {
@@ -24,3 +24,5 @@ export default function () {
     </main>
   );
 }
+
+export default HomePage;
