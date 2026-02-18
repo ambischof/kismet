@@ -2,13 +2,7 @@
 Still figuring out the best way to deal with css and MUI styling.
 
 ********/
-/* NOTE: the current app is about 52 rem tall, heights should be
-   adjusted if this hanges */
-:root {
-  --app-height: 52rem;
-  --max-app-container-height: 65rem;
-}
-   
+
 body {
   height: 100vh;
 }
@@ -25,9 +19,6 @@ main {
 }
 
 #kismet-toolbar {
-  margin: -1rem -1rem 0 -1rem;
-  /* a width of 100% is 2rem less due to margin */
-  width: calc(100% + 2rem);
   color: var(--mui-palette-text-primary);
 }
 
@@ -35,7 +26,9 @@ main {
   /* don't let it collapse with flex */
   flex-grow: 1;
 
-  padding: 1rem;
+  /* add some padding on bottom for looks
+    to be removed on short viewports */
+  padding-bottom: 1rem;
   margin-inline: auto;
   max-width: 40rem;
   max-height: 100%;
@@ -55,9 +48,9 @@ main {
   linear-gradient(
     to bottom,
     hsl(210, 85%, 82%) 0%,      /* bright blue atmosphere */
-    hsl(208, 75%, 86%) 25%,     /* lighter #1976d2 */
-    hsl(228, 70%, 68%) 55%,     /* soft periwinkle */
-    hsl(255, 65%, 70%) 65%,     /* lifted purple */
+    hsl(208, 75%, 86%) 25%,     
+    hsl(228, 70%, 68%) 55%,     
+    hsl(255, 65%, 70%) 65%,     
     hsl(275, 70%, 68%) 70%,     /* just above horizon */
     hsl(234, 42%, 62%) 70%,     /* hard horizon */
     hsl(280, 55%, 55%) 100%     /* ground / below horizon */
@@ -91,16 +84,24 @@ main {
   }
 }
 
-@media (min-height: var(--max-app-container-height)) {
+/* NOTE: the current app is about 40 rem tall, heights should be
+   adjusted if this changes */
+
+@media (min-height: 45rem) {
   #kismet-game-container {
-    max-height: var(--max-app-container-height);
+    max-height: 45rem;
   }
 } 
 
 /* on short viewports, prevent hopping 
-    between scrolling and no scrolling */
-@media (max-height: var(--app-height)) {
+    between scrolling and no scrolling 
+    and remove some padding to help layout*/
+@media (max-height: 40rem) {
   #kismet-game-container {
     height: 100%;
+    padding-bottom: 0;
+  }
+  main {
+    padding: 0;
   }
 }

@@ -32,8 +32,8 @@
     &.selected {
       /* use bg color instead of outline so that focus-visible can use it
          border requires set size */
-         
-      background-color: var(--mui-palette-secondary-main);
+      /* SEE @media QUERY BELOW WHEN CHANGING */
+      background: var(--mui-palette-primary-light);
     }
 
     &:focus-visible {
@@ -47,6 +47,15 @@
     display: block;
   }
 }
+
+/* using light-dark() will trigger lightningcss which doesn't work for 
+    whatever reason. I don't care to troubleshoot. */
+@media (prefers-color-scheme: dark) {
+  button.whRolledDie.selected {
+    background: var(--mui-palette-primary-dark);
+  }
+}
+
 
 .whDiceContainer {
   display: flex;

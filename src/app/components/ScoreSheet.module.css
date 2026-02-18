@@ -2,9 +2,9 @@
   /* make it only as big as content */
   width: fit-content;
 
-  /* center content and add padding to y axis */
+  /* center content and add padding */
   margin-inline: auto;
-  padding-block: 1rem;
+  padding: 1rem;
 }
 
 .totalsContainer {
