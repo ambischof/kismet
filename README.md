@@ -6,26 +6,21 @@ This project was inspired while playing Kismet and almost running out of the sco
 
 
 ## Demo
-Github pages is set up to point to the docs folder which holds the demo https://ambischof.github.io/kismet/
+~~Github pages is set up to point to the docs folder which holds the demo https://ambischof.github.io/kismet/~~ Getting too big to commit to git
 
+See https://kismet-production-ae06.up.railway.app/ for working demo.
+
+If you want to see the old uggo (MVP) version, you may go to the https://kismet-production-ae06.up.railway.app/vanilla
+
+I have free plan, please be kind! <3 I can't guarantee will even work.
 
 ## REDO with MUI
 Wanting to make something looking not crappy, I redid the UI with MUI to attempt a mobile friendly, game like UI
 
-Ideas/TODO
-☐ Feedback/pulse/animations
-☑ better color scheme
-☐ Deploy to railway
-☑ Make Navigation Bar (include total and undo btn)
-  ☑ undo button 
-
-
-## OLD 
-### What this project is
-
-This project was made to help me learn React. And in an app that you probably haven't seen before.
-
-### What this project is not
-
-I spent no time in making this look good. I also didn't try to add in other gameplay elements that a digital version could provide, at least not in this iteration.
-
+## Ideas/TODO
+- ☐ Feedback/pulse/animations
+- ☑ better color scheme
+- ☑ Deploy to railway
+- ☑ Make Navigation Bar (include total and undo btn)
+  - ☑ undo button 
+- ☐ Improve image load speed in Railway
